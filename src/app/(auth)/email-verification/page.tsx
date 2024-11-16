@@ -21,7 +21,7 @@ export default async function EmailVerification() {
     <section className="flex flex-1 flex-col justify-center items-center relative">
       <Image src="/images/logo.png" alt="Logo" width={200} height={100} />
       <h3 className="text-3xl font-bold mt-4">
-        Please verify your email address to complete the sign up process 💌
+        이메일을 확인하여 회원가입을 마무리하세요.
       </h3>
     </section>
   );

@@ -16,15 +16,15 @@ export async function GET(request: Request) {
 
     if (!sessionError) {
       // if the user doesn't have profile data yet, send them to the onboarding page
-      const { data: profile } = await supabase
-        .from("profile")
+      const { data: profiles } = await supabase
+        .from("profiles")
         .select("*")
         .eq("user_id", sessionData.user.id);
 
-      if (!profile) {
+      if (!profiles) {
         next = "/onboarding";
         const {  } = await supabase
-          .from("profile")
+          .from("profiles")
           .insert([
             {
               user_id: sessionData.user.id,

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Provider } from "@supabase/supabase-js";
 import { GoogleIcon } from "@/components/icon";
-import { oAuthSignIn } from "../actions";
+import { oAuthSignIn } from "./actions";
 
 type OAuthProvider = {
   name: Provider;

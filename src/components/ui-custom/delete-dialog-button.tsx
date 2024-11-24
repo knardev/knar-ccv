@@ -37,7 +37,7 @@ export const DeleteDialogButton: React.FC<DeleteDialogButtonProps> = ({
 
       if (navigateBack) {
         // Get the previous URL from document.referrer
-        let previousURL = document.referrer;
+        const previousURL = document.referrer;
 
         // Ensure previousURL is within the same origin for security
         if (

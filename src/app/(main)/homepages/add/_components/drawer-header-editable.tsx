@@ -91,7 +91,9 @@ export function HomepageAddDrawerHeaderEditable() {
         <div className="flex justify-between">
           <div className="flex items-center space-x-4">
             <Image
-              src={"https://www.google.com/favicon.ico"}
+              src={
+                "https://oguzdjlnwsdproeuoywm.supabase.co/storage/v1/object/public/images/knar%20logo.jpg"
+              }
               alt="temp favicon"
               width={25}
               height={25}

@@ -67,7 +67,7 @@ export function HomepageDetailDrawerContentEditable({
             <div className="flex justify-center mb-3">
               <Carousel className="w-full">
                 <CarouselContent>
-                  {sectionImages.slice(0, 3).map((section) => (
+                  {sectionImages.map((section) => (
                     <CarouselItem key={section.id}>
                       <AspectRatio
                         ratio={16 / 9}

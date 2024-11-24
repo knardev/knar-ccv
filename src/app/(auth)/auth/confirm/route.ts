@@ -19,22 +19,7 @@ export async function GET(request: NextRequest) {
       token_hash,
     });
     if (!error && data?.user) {
-      // if the user doesn't have profile data yet, send them to the onboarding page
-      // const profile = await prisma.$transaction(async (prisma) => {
-      //   return await prisma.profile.findFirst({
-      //     where: {
-      //       user: data.user?.id,
-      //     },
-      //   });
-      // });
-      // if (!profile) {
-      //   // create a profile for the user
-      //   await prisma.profile.create({
-      //     data: {
-      //       user: data.user.id,
-      //     },
-      //   });
-      // }
+      // 프로필 있는지 확인하고, 추가하기
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer // 로드 밸런서 이전의 원래 원본
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {

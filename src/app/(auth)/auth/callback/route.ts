@@ -20,9 +20,10 @@ export async function GET(request: Request) {
         .from("profiles")
         .select("*")
         .eq("user_id", sessionData.user.id);
+      console.log(profiles);
 
-      if (!profiles) {
-        next = "/onboarding";
+      if (profiles?.length === 0) {
+        next = "/onboarding/profile";
         const {  } = await supabase
           .from("profiles")
           .insert([

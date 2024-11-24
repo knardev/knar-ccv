@@ -1,7 +1,42 @@
-export default function Page() {
+import React from "react";
+import { PlanSelectorGroup } from "../../_components/plan-select-group";
+import { IndustrySelectorGroup } from "../../_components/industry-select-group";
+import { SectionSelectorGroup } from "../../_components/section-select-group";
+import { ExplorePageTemplate } from "../../_components/explore-page-template";
+import { fetchSections } from "../../_actions/fetch-sections";
+import { normalizeQueryParams } from "../../utils";
+import { Tables } from "@/types/database.types";
+
+interface PlanSectionsPageProps {
+  searchParams: Record<string, string | string[] | undefined>;
+}
+
+type Section = Tables<"sections">;
+
+export default async function Page({ searchParams }: PlanSectionsPageProps) {
+  const normalizedParams = normalizeQueryParams(searchParams);
+  const sections: Section[] = await fetchSections(
+    new URLSearchParams(normalizedParams)
+  );
+
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-between">
-      섹션 레퍼런스 검색 페이지입니다. (기획 기반 검색)
-    </main>
+    <ExplorePageTemplate
+      selectors={
+        <>
+          <IndustrySelectorGroup />
+          <SectionSelectorGroup />
+          <PlanSelectorGroup />
+        </>
+      }
+    >
+      <div>
+        {sections.map((section) => (
+          <div key={section.id} className="border-b border-gray-200 pb-4 mb-4">
+            <h2 className="text-lg font-bold">{section.type}</h2>
+            <p className="text-sm text-gray-600">{section.image_url}</p>
+          </div>
+        ))}
+      </div>
+    </ExplorePageTemplate>
   );
 }

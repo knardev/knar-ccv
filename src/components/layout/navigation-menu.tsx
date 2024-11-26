@@ -24,7 +24,7 @@ export async function TopNavigationMenu() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="flex items-center h-[60px] w-full px-10 bg-background justify-between m-auto  fixed top-0 z-50">
+    <header className="flex items-center h-[60px] w-full px-10 bg-background justify-between m-auto fixed top-0 z-50">
       <div className="flex items-center space-x-4">
         <Link href="/">크날 CCV</Link>
         <NavigationMenu>

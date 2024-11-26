@@ -36,7 +36,7 @@ export default async function Page({ searchParams }: DesignHomepagesPageProps) {
         </>
       }
     >
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-5">
         {homepages.map((homepage) => (
           <Link
             prefetch={true}

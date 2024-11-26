@@ -20,9 +20,10 @@ export async function ExplorePageTemplate({
   const accountRole = await checkAccountRole();
 
   return (
-    <div className="w-full flex flex-col justify-between gap-10">
-      {/* Search Input Section */}
-      {/* <section className="w-1/2 m-auto">
+    <div className="w-full h-[85vh] flex flex-col relative">
+      <div className="absolute top-0 w-full h-20">
+        {/* Search Input Section */}
+        {/* <section className="w-1/2 m-auto">
         <div className="relative flex items-center">
           <Search className="absolute left-3 w-4 h-4 text-muted-foreground" />
           <Input
@@ -33,23 +34,24 @@ export async function ExplorePageTemplate({
         </div>
       </section> */}
 
-      {/* Selectors Section */}
-      <section className="w-full flex items-center justify-between">
-        <div className="w-full flex items-center space-x-2">{selectors}</div>
-        <div>
-          {accountRole === "ADMIN" && (
-            <Link href={`/homepages/add`} prefetch={true}>
-              <Button variant="default" className="text-lg">
-                <ImagePlus />
-                추가
-              </Button>
-            </Link>
-          )}
-        </div>
-      </section>
+        {/* Selectors Section */}
+        <section className="w-full flex items-center justify-between">
+          <div className="w-full flex items-center space-x-2">{selectors}</div>
+          <div>
+            {accountRole === "ADMIN" && (
+              <Link href={`/homepages/add`} prefetch={true}>
+                <Button variant="default" className="text-lg">
+                  <ImagePlus />
+                  추가
+                </Button>
+              </Link>
+            )}
+          </div>
+        </section>
+      </div>
 
-      {/* Additional Content */}
-      {children}
+      {/* Additional Content - Scrollable */}
+      <div className="flex-1 overflow-y-auto mt-20 py-5">{children}</div>
     </div>
   );
 }

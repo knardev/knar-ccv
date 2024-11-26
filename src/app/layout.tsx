@@ -33,7 +33,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <TopNavigationMenu />
-          <main className="pt-[calc(80px+20px)] px-10 h-screen">
+          <main className="pt-[calc(60px+20px)] px-10 h-screen">
             {/* 스크롤 가능한 영역 */}
             {children}
           </main>

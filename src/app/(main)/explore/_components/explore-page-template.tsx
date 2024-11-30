@@ -35,8 +35,8 @@ export async function ExplorePageTemplate({
       </section> */}
 
         {/* Selectors Section */}
-        <section className="w-full flex items-center justify-between">
-          <div className="w-full flex items-center space-x-2">{selectors}</div>
+        <section className="w-full flex justify-between">
+          <div className="w-full flex space-x-2 h-16">{selectors}</div>
           <div>
             {accountRole === "ADMIN" && (
               <Link href={`/homepages/add`} prefetch={true}>

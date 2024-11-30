@@ -5,7 +5,7 @@ import { planGrammarOptions } from "../_types/options";
 
 export function PlanSelectorGroup() {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex space-x-2">
       <QueryMultiSelector
         options={planGrammarOptions}
         placeholder="기획 문법"

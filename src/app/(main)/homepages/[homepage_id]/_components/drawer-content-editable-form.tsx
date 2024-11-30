@@ -16,6 +16,10 @@ import {
 } from "../options";
 import { Tables } from "@/types/database.types";
 import { ColorSelectItem } from "@/components/ui-custom/color-select-item";
+import {
+  BaseMultiSelector,
+  BaseMultiSelectorProps,
+} from "@/components/ui-custom/base-multi-select";
 
 type Homepage = Tables<"homepages">;
 
@@ -30,12 +34,13 @@ export function HomepageDetailDrawerContentEditableForm({
     setHomepage(initialData);
   }, [initialData, setHomepage]);
 
-  const handleInputChange = (field: keyof Homepage) => (value: string) => {
-    setHomepage({
-      ...homepage,
-      [field]: value,
-    });
-  };
+  const handleInputChange =
+    (field: keyof Homepage) => (value: string | string[]) => {
+      setHomepage({
+        ...homepage,
+        [field]: value,
+      });
+    };
 
   return (
     <div className="p-4 space-y-8">
@@ -99,29 +104,29 @@ export function HomepageDetailDrawerContentEditableForm({
       <div>
         <h1 className="text-2xl font-bold mb-4">디자인 정보</h1>
         <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="design_mood">
-            톤앤매너
-          </Label>
-          <BaseSelect
-            id="design_mood"
-            options={designMoodOptions}
-            placeholder="디자인 톤앤매너를 선택하세요."
-            value={homepage.design_mood ?? ""}
-            onValueChange={handleInputChange("design_mood")}
-            width="w-full"
-          />
-        </div>
-        <div className="flex space-x-2 items-center mb-4">
           <Label className="w-[25%]" htmlFor="design_desire_type">
             방향성
           </Label>
-          <BaseSelect
-            id="design_desire_type"
+          <BaseMultiSelector
             options={designDesireTypeOptions}
-            placeholder="디자인 방향성을 선택하세요."
-            value={homepage.design_desire_type ?? ""}
-            onValueChange={handleInputChange("design_desire_type")}
-            width="w-full"
+            placeholder="디자인 방향성"
+            values={homepage.design_desire_types ?? []}
+            onValuesChange={handleInputChange("design_desire_types")}
+            maxBadges={4}
+            badgeColor="bg-yellow-100"
+            badgeTextColor="text-yellow-800"
+          />
+        </div>
+        <div className="flex space-x-2 items-center mb-4">
+          <Label className="w-[25%]" htmlFor="design_mood">
+            톤앤매너
+          </Label>
+          <BaseMultiSelector
+            options={designMoodOptions}
+            placeholder="디자인 톤앤매너"
+            values={homepage.design_moods ?? []}
+            onValuesChange={handleInputChange("design_moods")}
+            maxBadges={4}
           />
         </div>
         {/* <div className="flex space-x-2 items-center">

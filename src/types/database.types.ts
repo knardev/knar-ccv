@@ -16,10 +16,12 @@ export type Database = {
             | null
           created_at: string | null
           description: string
-          design_desire_type:
-            | Database["public"]["Enums"]["design_desire_type"]
+          design_desire_type: string | null
+          design_desire_types:
+            | Database["public"]["Enums"]["design_desire_type"][]
             | null
           design_mood: Database["public"]["Enums"]["design_mood"] | null
+          design_moods: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url: string | null
           id: string
           industry_category:
@@ -45,10 +47,12 @@ export type Database = {
             | null
           created_at?: string | null
           description: string
-          design_desire_type?:
-            | Database["public"]["Enums"]["design_desire_type"]
+          design_desire_type?: string | null
+          design_desire_types?:
+            | Database["public"]["Enums"]["design_desire_type"][]
             | null
           design_mood?: Database["public"]["Enums"]["design_mood"] | null
+          design_moods?: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url?: string | null
           id?: string
           industry_category?:
@@ -74,10 +78,12 @@ export type Database = {
             | null
           created_at?: string | null
           description?: string
-          design_desire_type?:
-            | Database["public"]["Enums"]["design_desire_type"]
+          design_desire_type?: string | null
+          design_desire_types?:
+            | Database["public"]["Enums"]["design_desire_type"][]
             | null
           design_mood?: Database["public"]["Enums"]["design_mood"] | null
+          design_moods?: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url?: string | null
           id?: string
           industry_category?:
@@ -106,6 +112,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pages: {
+        Row: {
+          created_at: string
+          id: string
+          page_category: Database["public"]["Enums"]["page_category"] | null
+          page_subcategory:
+            | Database["public"]["Enums"]["page_subcategory"]
+            | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page_category?: Database["public"]["Enums"]["page_category"] | null
+          page_subcategory?:
+            | Database["public"]["Enums"]["page_subcategory"]
+            | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page_category?: Database["public"]["Enums"]["page_category"] | null
+          page_subcategory?:
+            | Database["public"]["Enums"]["page_subcategory"]
+            | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -136,6 +169,7 @@ export type Database = {
           id: string
           image_url: string[]
           main_copy: string | null
+          page_sequence: number | null
           profile_id: string | null
           sub_copy: string | null
           type: Database["public"]["Enums"]["section_type"] | null
@@ -147,6 +181,7 @@ export type Database = {
           id?: string
           image_url: string[]
           main_copy?: string | null
+          page_sequence?: number | null
           profile_id?: string | null
           sub_copy?: string | null
           type?: Database["public"]["Enums"]["section_type"] | null
@@ -158,6 +193,7 @@ export type Database = {
           id?: string
           image_url?: string[]
           main_copy?: string | null
+          page_sequence?: number | null
           profile_id?: string | null
           sub_copy?: string | null
           type?: Database["public"]["Enums"]["section_type"] | null
@@ -284,6 +320,25 @@ export type Database = {
         | "마케팅"
         | "디자인"
         | "경영 컨설팅"
+      page_category:
+        | "메인 페이지"
+        | "소개 페이지"
+        | "기능 페이지"
+        | "뉴스 페이지"
+        | "구성원 페이지"
+        | "컨텍 페이지"
+      page_subcategory:
+        | "인사말"
+        | "미션/비전"
+        | "CI"
+        | "연혁"
+        | "팀소개"
+        | "블로그"
+        | "언론보도"
+        | "서비스 소개"
+        | "분야 소개"
+        | "오시는 길"
+        | "쇼핑몰"
       primary_color:
         | "빨강"
         | "파랑"
@@ -310,6 +365,8 @@ export type Database = {
         | "컨텍 섹션"
         | "후기 섹션"
         | "고객사 로고 섹션"
+        | "기타"
+        | "특장점 섹션"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -35,21 +35,21 @@ export const DeleteDialogButton: React.FC<DeleteDialogButtonProps> = ({
     try {
       await onDelete();
 
-      if (navigateBack) {
-        // Get the previous URL from document.referrer
-        const previousURL = document.referrer;
+      // if (navigateBack) {
+      //   // Get the previous URL from document.referrer
+      //   const previousURL = document.referrer;
 
-        // Ensure previousURL is within the same origin for security
-        if (
-          previousURL &&
-          new URL(previousURL).origin === window.location.origin
-        ) {
-          router.push(previousURL);
-        } else {
-          // Fallback to a default URL if referrer is not available or from a different origin
-          router.push("/");
-        }
-      }
+      //   // Ensure previousURL is within the same origin for security
+      //   if (
+      //     previousURL &&
+      //     new URL(previousURL).origin === window.location.origin
+      //   ) {
+      //     router.push(previousURL);
+      //   } else {
+      //     // Fallback to a default URL if referrer is not available or from a different origin
+      //     router.push("/");
+      //   }
+      // }
     } catch (error) {
       console.error("Error deleting item:", error);
     } finally {

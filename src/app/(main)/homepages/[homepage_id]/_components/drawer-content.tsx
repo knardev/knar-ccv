@@ -19,6 +19,7 @@ import { Tables } from "@/types/database.types";
 import { Separator } from "@/components/ui/separator";
 import { SectionPreviewCard } from "./section-preview-card";
 import { typeOrderMap } from "../options";
+import { Badge } from "@/components/ui/badge";
 
 type Homepage = Tables<"homepages">;
 type Section = Tables<"sections">;
@@ -127,35 +128,67 @@ export function HomepageDetailDrawerContent({
           <ScrollArea className="h-[77vh]">
             <div className="p-4">
               <h1 className="text-2xl font-bold">{data.name}</h1>
-              <p className="mt-4 text-gray-600 break-keep">
+              <p className="mt-4 text-gray-600 break-keep max-h-20 p-2 border rounded-sm">
                 {data.description}
               </p>
-              <p className="mt-4 text-gray-600">링크 | {data.url}</p>
-              <p className="mt-4 text-gray-600">
-                기업분류 | {data.company_category}
-              </p>
+
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">링크</p>
+                <p className="flex flex-wrap gap-1">{data.url}</p>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">기업분류</p>
+                <p className="flex flex-wrap gap-1">{data.company_category}</p>
+              </div>
               <Separator className="my-8" />
               <h1 className="text-2xl font-bold">디자인 정보</h1>
-              <p className="mt-4 text-gray-600">
-                디자인 톤앤매너 | {data.design_mood}
-              </p>
-              <p className="mt-4 text-gray-600">
-                디자인 방향성 | {data.design_desire_type}
-              </p>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">디자인 방향성</p>
+                <div className="flex flex-wrap gap-1">
+                  {data.design_desire_types?.map((type) => (
+                    <Badge key={type} variant="secondary" className="mr-1">
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">디자인 톤앤매너</p>
+                <div className="flex flex-wrap gap-1">
+                  {data.design_moods?.map((type) => (
+                    <Badge
+                      key={type}
+                      variant="secondary"
+                      className="bg-yellow-100 hover:bg-yellow-100 hover:bg-opacity-50 text-yellow-800"
+                    >
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
               {/* <p className="mt-4 text-gray-600">
                 메인 컬러 | {data.primary_color}
               </p> */}
               <Separator className="my-8" />
               <h1 className="text-2xl font-bold">기획 정보</h1>
-              <p className="mt-4 text-gray-600">
-                악당 | {data.villian_deficiency}
-              </p>
-              <p className="mt-4 text-gray-600">
-                특장점 | {data.unique_selling_point}
-              </p>
-              <p className="mt-4 text-gray-600">
-                방문자 니즈 | {data.visitor_needs}
-              </p>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">악당</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.villian_deficiency}
+                </p>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">특장점</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.unique_selling_point}
+                </p>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">방문자 니즈</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.visitor_needs}
+                </p>
+              </div>
             </div>
           </ScrollArea>
         </ResizablePanel>

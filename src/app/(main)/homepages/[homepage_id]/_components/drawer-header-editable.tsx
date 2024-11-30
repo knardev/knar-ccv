@@ -16,6 +16,7 @@ import { SaveButton } from "@/components/ui-custom/save-button";
 import { Enums, Tables } from "@/types/database.types";
 import { updateHomepage } from "../_actions/update-homepage";
 import { deleteHomepage } from "../_actions/delete-homepage";
+import { revalidate } from "@/utils/revalidate";
 
 type Homepage = Tables<"homepages">;
 
@@ -45,7 +46,13 @@ export function HomepageDetailDrawerHeaderEditable({
   };
 
   const handleDeleteHomepage = async () => {
+    // 이전 페이지 URl을 저장하고, 삭제 후에 이전 페이지로 이동
+    const previousUrl = document.referrer;
+
     await deleteHomepage(data.id);
+
+    await revalidate(previousUrl);
+    router.push(previousUrl);
   };
 
   return (
@@ -70,7 +77,7 @@ export function HomepageDetailDrawerHeaderEditable({
             <DeleteDialogButton
               name={data.name}
               onDelete={handleDeleteHomepage}
-              navigateBack={true}
+              // navigateBack={true}
             />
           </div>
         </div>

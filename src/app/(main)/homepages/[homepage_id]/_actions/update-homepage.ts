@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { defineUpdateHomepageQuery } from "../_queries/defineUpdateHomepageQuery";
 import { Tables } from "@/types/database.types";
 
@@ -17,4 +18,5 @@ export async function updateHomepage(
     console.error("Error updating homepage:", error);
     throw new Error("Failed to update homepage");
   }
+  revalidatePath(`/homepages/${homepageId}`);
 }

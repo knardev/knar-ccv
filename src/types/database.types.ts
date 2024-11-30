@@ -37,6 +37,7 @@ export type Database = {
           unique_selling_point: string | null
           url: string
           villian_deficiency: string | null
+          visitor_needs: string | null
         }
         Insert: {
           company_category?:
@@ -65,6 +66,7 @@ export type Database = {
           unique_selling_point?: string | null
           url: string
           villian_deficiency?: string | null
+          visitor_needs?: string | null
         }
         Update: {
           company_category?:
@@ -93,6 +95,7 @@ export type Database = {
           unique_selling_point?: string | null
           url?: string
           villian_deficiency?: string | null
+          visitor_needs?: string | null
         }
         Relationships: [
           {

@@ -16,7 +16,7 @@ export function DesignSelectorGroup() {
     <div className="flex items-center space-x-2">
       <QueryMultiSelector
         options={designDesireTypeOptions}
-        placeholder="디자인 유형"
+        placeholder="디자인 방향성"
         queryParam="design_desire_type"
         width="w-[180px]"
         maxBadges={1}
@@ -28,7 +28,7 @@ export function DesignSelectorGroup() {
         width="w-[200px]"
         maxBadges={1}
       />
-      <QueryMultiSelector
+      {/* <QueryMultiSelector
         options={primaryColorOptions}
         queryParam="primary_color"
         placeholder="메인 컬러"
@@ -37,7 +37,7 @@ export function DesignSelectorGroup() {
         renderItem={(option: Option, isSelected: boolean) => (
           <ColorSelectItem option={option} />
         )}
-      />
+      /> */}
     </div>
   );
 }

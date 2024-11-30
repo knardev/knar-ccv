@@ -45,14 +45,9 @@ export function HomepageDetailDrawerHeaderEditable({
     router.back();
   };
 
-  const handleDeleteHomepage = async () => {
-    // 이전 페이지 URl을 저장하고, 삭제 후에 이전 페이지로 이동
-    const previousUrl = document.referrer;
-
+  const onDelete = async () => {
     await deleteHomepage(data.id);
-
-    await revalidate(previousUrl);
-    router.push(previousUrl);
+    await revalidate("/explore/homepage/design", "page");
   };
 
   return (
@@ -74,11 +69,7 @@ export function HomepageDetailDrawerHeaderEditable({
               취소
             </Button>
             <SaveButton onSave={handleSave} />
-            <DeleteDialogButton
-              name={data.name}
-              onDelete={handleDeleteHomepage}
-              // navigateBack={true}
-            />
+            <DeleteDialogButton name={data.name} onDelete={onDelete} />
           </div>
         </div>
       </DrawerTitle>

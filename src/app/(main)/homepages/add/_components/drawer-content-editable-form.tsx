@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { BaseSelect } from "@/components/ui-custom/base-select";
+import { BaseMultiSelector } from "@/components/ui-custom/base-multi-select";
 import {
   companyCategories,
   designDesireTypeOptions,
@@ -22,12 +23,13 @@ type Homepage = TablesInsert<"homepages">;
 export function HomepageAddDrawerContentEditableForm() {
   const [homepage, setHomepage] = useRecoilState(beingAddedHomepageState);
 
-  const handleInputChange = (field: keyof Homepage) => (value: string) => {
-    setHomepage({
-      ...homepage,
-      [field]: value,
-    });
-  };
+  const handleInputChange =
+    (field: keyof Homepage) => (value: string | string[]) => {
+      setHomepage({
+        ...homepage,
+        [field]: value,
+      });
+    };
 
   return (
     <div className="p-4 space-y-8">
@@ -89,31 +91,31 @@ export function HomepageAddDrawerContentEditableForm() {
 
       {/* Design Information */}
       <div>
-        <h1 className="text-2xl font-bold mb-4">디자인 정보</h1>
-        <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="design_mood">
-            톤앤매너
-          </Label>
-          <BaseSelect
-            id="design_mood"
-            options={designMoodOptions}
-            placeholder="디자인 톤앤매너를 선택하세요."
-            value={homepage.design_mood ?? ""}
-            onValueChange={handleInputChange("design_mood")}
-            width="w-full"
-          />
-        </div>
-        <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="design_desire_type">
+        <h1 className="text-2xl font-bold mb-8">디자인 정보</h1>
+        <div className="h-16 flex space-x-2 mb-4">
+          <Label className="w-[25%] mt-2" htmlFor="design_desire_type">
             방향성
           </Label>
-          <BaseSelect
-            id="design_desire_type"
+          <BaseMultiSelector
             options={designDesireTypeOptions}
-            placeholder="디자인 방향성을 선택하세요."
-            value={homepage.design_desire_type ?? ""}
-            onValueChange={handleInputChange("design_desire_type")}
-            width="w-full"
+            placeholder="디자인 방향성"
+            values={homepage.design_desire_types ?? []}
+            onValuesChange={handleInputChange("design_desire_types")}
+            maxBadges={4}
+            badgeColor="bg-yellow-100"
+            badgeTextColor="text-yellow-800"
+          />
+        </div>
+        <div className="h-16 flex space-x-2 mb-4">
+          <Label className="w-[25%] mt-2" htmlFor="design_mood">
+            톤앤매너
+          </Label>
+          <BaseMultiSelector
+            options={designMoodOptions}
+            placeholder="디자인 톤앤매너"
+            values={homepage.design_moods ?? []}
+            onValuesChange={handleInputChange("design_moods")}
+            maxBadges={4}
           />
         </div>
         {/* <div className="flex space-x-2 items-center">
@@ -140,7 +142,7 @@ export function HomepageAddDrawerContentEditableForm() {
       <div>
         <h1 className="text-2xl font-bold mb-6">기획 정보</h1>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%]" htmlFor="villian_deficiency">
+          <Label className="w-[25%] mt-2" htmlFor="villian_deficiency">
             악당
           </Label>
           <Textarea
@@ -155,7 +157,7 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%]" htmlFor="unique_selling_point">
+          <Label className="w-[25%] mt-2" htmlFor="unique_selling_point">
             특장점
           </Label>
           <Textarea
@@ -170,7 +172,7 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%]" htmlFor="visitor_needs">
+          <Label className="w-[25%] mt-2" htmlFor="visitor_needs">
             방문자 니즈
           </Label>
           <Textarea

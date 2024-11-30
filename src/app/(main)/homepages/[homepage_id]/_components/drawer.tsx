@@ -8,6 +8,7 @@ import { HomepageDetailDrawerContent } from "./drawer-content";
 import { HomepageDetailDrawerHeaderEditable } from "./drawer-header-editable";
 import { HomepageDetailDrawerContentEditable } from "./drawer-content-editable";
 import { Enums, Tables } from "@/types/database.types";
+import { usePreviousSearchParams } from "@/hooks/use-previous-search-params";
 
 type Homepage = Tables<"homepages">;
 
@@ -16,7 +17,7 @@ interface HomepageWithSections extends Homepage {
 }
 
 interface HomepageDetailDrawerProps {
-  data: HomepageWithSections;
+  data: HomepageWithSections | null;
   accountRole: Enums<"account_role">;
 }
 
@@ -25,6 +26,12 @@ export function HomepageDetailDrawer({
   accountRole,
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
+  const { moveToPreviousSearchParams } = usePreviousSearchParams();
+  if (!data) {
+    console.error("Homepage not found");
+    moveToPreviousSearchParams();
+    return null;
+  }
 
   const searchParams = useSearchParams();
   const mode = React.useMemo(() => {

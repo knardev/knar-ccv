@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
 import { Enums, Tables } from "@/types/database.types";
 import { deleteHomepage } from "../_actions/delete-homepage";
+import { revalidate } from "@/utils/revalidate";
 
 type Homepage = Tables<"homepages">;
 
@@ -26,8 +27,9 @@ export function HomepageDetailDrawerHeader({
   data,
   accountRole,
 }: HomepageDetailDrawerProps) {
-  const handleDeleteHomepage = async () => {
+  const onDelete = async () => {
     await deleteHomepage(data.id);
+    await revalidate("/explore/homepage/design", "layout");
   };
 
   return (
@@ -64,11 +66,7 @@ export function HomepageDetailDrawerHeader({
                     수정
                   </Button>
                 </Link>
-                <DeleteDialogButton
-                  name={data.name}
-                  onDelete={handleDeleteHomepage}
-                  navigateBack={true}
-                />
+                <DeleteDialogButton name={data.name} onDelete={onDelete} />
               </>
             )}
           </div>

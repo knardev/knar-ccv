@@ -66,14 +66,11 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
                 src={section.imageUrl}
                 alt={`Section ${section.type ?? "섹션"}`}
                 fill
-                className="h-full w-full object-cover "
+                className="h-full w-full object-cover"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </AspectRatio>
-            {/* <Button variant="outline" size="sm">
-              편집
-            </Button> */}
           </DialogTrigger>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>

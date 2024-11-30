@@ -42,21 +42,19 @@ export const HomepagePreviewCard = React.forwardRef<
       </p>
       <AspectRatio
         ratio={16 / 9}
-        className="mt-4 bg-transparent overflow-hidden rounded-md"
+        className="mt-4 bg-transparent border border-slate-400 cursor-pointer overflow-hidden rounded-md"
       >
-        <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out">
-          <Image
-            src={
-              thumbnail_url ||
-              "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-            }
-            alt={`${name} preview`}
-            fill
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-            className="object-cover border border-gray-200 rounded-md"
-          />
-        </div>
+        <Image
+          src={
+            thumbnail_url ||
+            "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+          }
+          alt={`${name} preview`}
+          fill
+          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+        />
       </AspectRatio>
     </a>
   );

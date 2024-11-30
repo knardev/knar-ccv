@@ -1,20 +1,14 @@
 // components/HomepageDetail.tsx
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Button } from "@/components/ui/button";
 import { Tables } from "@/types/database.types";
 import { Separator } from "@/components/ui/separator";
 import { SectionPreviewCard } from "./section-preview-card";
@@ -62,32 +56,6 @@ export function HomepageDetailDrawerContent({
       >
         <ResizablePanel defaultSize={70}>
           <div className="p-4 h-[77vh] overflow-y-auto">
-            {/* <div className="mb-3">
-              <div className="overflow-x-auto">
-                <div className="flex space-x-4">
-                  {sortedSections.map((section) => (
-                    <div className="w-[650px] flex-shrink-0" key={section.id}>
-                      <AspectRatio
-                        ratio={16 / 9}
-                        className="bg-transparent rounded-md border-slate-300 border"
-                      >
-                        <Image
-                          src={
-                            section.image_url[0] ??
-                            "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                          }
-                          alt={`${data.name}/${section.type}`}
-                          fill
-                          className="h-full w-full rounded-md object-cover"
-                          placeholder="blur"
-                          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-                        />
-                      </AspectRatio>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div> */}
             <div className="grid grid-cols-1 gap-10">
               {sectionImages.map((section, index) => (
                 <SectionPreviewCard
@@ -109,7 +77,12 @@ export function HomepageDetailDrawerContent({
 
               <div className="my-6 flex">
                 <p className="w-[25%] text-gray-600">링크</p>
-                <p className="flex flex-wrap gap-1">{data.url}</p>
+                <Link target="_blank" href={data.url} passHref>
+                  <Button variant="outline">
+                    <ExternalLink size={16} />
+                    홈페이지 방문
+                  </Button>
+                </Link>
               </div>
               <div className="my-6 flex">
                 <p className="w-[25%] text-gray-600">기업분류</p>

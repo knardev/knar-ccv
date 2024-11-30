@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { HomepageDetailDrawerHeader } from "./drawer-header";
@@ -27,6 +28,7 @@ export function HomepageDetailDrawer({
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
   const { moveToPreviousSearchParams } = usePreviousSearchParams();
+
   if (!data) {
     console.error("Homepage not found");
     moveToPreviousSearchParams();
@@ -39,23 +41,7 @@ export function HomepageDetailDrawer({
   }, [searchParams]);
 
   const onClose = () => {
-    const referrer = document.referrer; // Get the referring URL
-    const currentOrigin = window.location.origin;
-
-    if (referrer && referrer.includes(currentOrigin)) {
-      const relativeReferrer = referrer.replace(currentOrigin, "");
-
-      if (relativeReferrer.includes("/add")) {
-        // If the referrer contains '/add', go back two pages
-        window.history.go(-2);
-      } else {
-        // Otherwise, go back one page
-        router.back();
-      }
-    } else {
-      // Redirect to the homepage if no valid referrer exists
-      router.push("/");
-    }
+    router.back();
   };
 
   if (mode === "edit" && accountRole !== "ADMIN") {

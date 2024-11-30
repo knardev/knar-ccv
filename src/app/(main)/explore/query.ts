@@ -29,9 +29,16 @@ export const defineFetchHomepagesQuery = async (filters: HomepageFilters) => {
             `name.ilike.%${value}%,description.ilike.%${value}%`
           );
           break;
+        case "design_desire_types":
+          // 교집합
+          query = query.overlaps(key, value);
+          break;
+        case "design_moods":
+          // 합집합
+          query = query.overlaps(key, value);
+          break;
         default:
           if (Array.isArray(value)) {
-            // Use 'in' for arrays
             query = query.in(key, value);
           } else {
             // Exact match for strings

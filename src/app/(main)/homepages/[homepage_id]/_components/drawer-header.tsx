@@ -46,20 +46,20 @@ export function HomepageDetailDrawerHeader({
             <h1 className="text-2xl font-bold">{data.name}</h1>
           </div>
           <div className="flex space-x-1">
-            <Button variant="ghost" className="text-lg">
+            {/* <Button variant="ghost" className="text-lg">
               <Bookmark />
               저장
             </Button>
             <Button variant="ghost" className="text-lg">
               <Share2 />
               공유
-            </Button>
+            </Button> */}
             {accountRole === "ADMIN" && (
               <>
-                <Button variant="ghost" className="text-lg">
+                {/* <Button variant="ghost" className="text-lg">
                   <ImagePlus />
                   섹션 추가
-                </Button>
+                </Button> */}
                 <Link href={`/homepages/${data.id}?mode=edit`}>
                   <Button variant="ghost" className="text-lg">
                     <Pencil />

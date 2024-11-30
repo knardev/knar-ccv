@@ -9,7 +9,7 @@ export function usePreviousSearchParams() {
   );
 
   const moveToPreviousSearchParams = () => {
-    router.replace(`/explore/homepage/design?${previousSearchParams}`);
+    router.push(`/explore/homepage/design?${previousSearchParams}`);
   };
 
   return { previousSearchParams, moveToPreviousSearchParams };

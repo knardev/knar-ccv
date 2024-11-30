@@ -6,7 +6,9 @@ export interface HomepageFilters {
   industry_category?: string[];
   industry_subcategory?: string[];
   design_desire_type?: string[];
+  design_desire_types?: string[];
   design_mood?: string[];
+  design_moods?: string[];
   primary_color?: string[];
   plan_grammar?: string[];
   villian_deficiency?: string[];

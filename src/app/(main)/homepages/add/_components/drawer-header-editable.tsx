@@ -72,14 +72,13 @@ export function HomepageAddDrawerHeaderEditable() {
 
         await addSections(updatedSections);
 
-        // Reset Recoil states after saving
-        resetHomepage();
-        resetSections();
-
         toast.success("변경사항이 성공적으로 저장되었습니다.");
 
         await revalidate(`/explore/homepage/design`, "layout");
-        router.push(`/homepages/${newHomepage.id}`);
+        // Reset Recoil states after saving
+        resetHomepage();
+        resetSections();
+        router.replace(`/homepages/${newHomepage.id}`);
       } catch (error) {
         console.error("Error saving changes:", error);
         toast.error("변경사항을 저장하는 중 오류가 발생했습니다.");

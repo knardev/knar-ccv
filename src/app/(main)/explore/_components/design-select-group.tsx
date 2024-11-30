@@ -17,7 +17,7 @@ export function DesignSelectorGroup() {
       <QueryMultiSelector
         options={designDesireTypeOptions}
         placeholder="디자인 방향성"
-        queryParam="design_desire_type"
+        queryParam="design_desire_types"
         width="w-[230px]"
         maxBadges={1}
         badgeColor="bg-yellow-100"
@@ -26,7 +26,7 @@ export function DesignSelectorGroup() {
       <QueryMultiSelector
         options={designMoodOptions}
         placeholder="디자인 톤앤매너"
-        queryParam="design_mood"
+        queryParam="design_moods"
         width="w-[230px]"
         maxBadges={1}
       />

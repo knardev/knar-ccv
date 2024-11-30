@@ -1,8 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { defineDeleteHomepageQuery } from "../_queries/defineDeleteHomepageQuery";
 import { Tables } from "@/types/database.types";
+
+type Homepage = Tables<"homepages">;
 
 /**
  * Action to delete a homepage
@@ -10,8 +11,8 @@ import { Tables } from "@/types/database.types";
  * @returns The deleted homepage data
  */
 export async function deleteHomepage(
-  homepageId: string,
-): Promise<void> {
+  homepageId: string
+): Promise<Homepage> {
   const query = await defineDeleteHomepageQuery(homepageId);
 
   const { data, error } = query;
@@ -24,4 +25,6 @@ export async function deleteHomepage(
   if (!data || data.length === 0) {
     throw new Error("No data returned after deleting homepage");
   }
+
+  return data[0]; // Return the deleted homepage
 }

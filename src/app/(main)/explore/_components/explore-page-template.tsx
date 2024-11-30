@@ -39,7 +39,7 @@ export async function ExplorePageTemplate({
           <div className="w-full flex space-x-2 h-16">{selectors}</div>
           <div>
             {accountRole === "ADMIN" && (
-              <Link href={`/homepages/add`} prefetch={true}>
+              <Link href={`/homepages/add`}>
                 <Button variant="default" className="text-lg">
                   <ImagePlus />
                   추가

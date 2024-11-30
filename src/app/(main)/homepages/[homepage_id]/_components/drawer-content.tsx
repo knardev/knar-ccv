@@ -62,7 +62,7 @@ export function HomepageDetailDrawerContent({
       >
         <ResizablePanel defaultSize={70}>
           <div className="p-4 h-[77vh] overflow-y-auto">
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <div className="overflow-x-auto">
                 <div className="flex space-x-4">
                   {sortedSections.map((section) => (
@@ -87,8 +87,8 @@ export function HomepageDetailDrawerContent({
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
+            </div> */}
+            <div className="grid grid-cols-1 gap-10">
               {sectionImages.map((section, index) => (
                 <SectionPreviewCard
                   section={section}
@@ -97,31 +97,6 @@ export function HomepageDetailDrawerContent({
               ))}
             </div>
           </div>
-
-          {/* <Carousel className="w-full">
-                <CarouselContent>
-                  {sortedSections.map((section) => (
-                    <CarouselItem key={section.id}>
-                      <AspectRatio
-                        ratio={16 / 9}
-                        className="bg-transparent rounded-md"
-                      >
-                        <Image
-                          src={
-                            section.image_url[0] ??
-                            "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                          }
-                          alt={`${data.name}/${section.type}`}
-                          fill
-                          className="h-full w-full rounded-md object-cover"
-                          placeholder="blur"
-                          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-                        />
-                      </AspectRatio>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel> */}
         </ResizablePanel>
         <ResizableHandle disabled className="w-0" />
         <ResizablePanel defaultSize={30}>
@@ -146,7 +121,11 @@ export function HomepageDetailDrawerContent({
                 <p className="w-[25%] text-gray-600">디자인 방향성</p>
                 <div className="flex flex-wrap gap-1">
                   {data.design_desire_types?.map((type) => (
-                    <Badge key={type} variant="secondary" className="mr-1">
+                    <Badge
+                      key={type}
+                      variant="secondary"
+                      className="bg-yellow-100 hover:bg-yellow-100 hover:bg-opacity-50 text-yellow-800"
+                    >
                       {type}
                     </Badge>
                   ))}
@@ -156,11 +135,7 @@ export function HomepageDetailDrawerContent({
                 <p className="w-[25%] text-gray-600">디자인 톤앤매너</p>
                 <div className="flex flex-wrap gap-1">
                   {data.design_moods?.map((type) => (
-                    <Badge
-                      key={type}
-                      variant="secondary"
-                      className="bg-yellow-100 hover:bg-yellow-100 hover:bg-opacity-50 text-yellow-800"
-                    >
+                    <Badge key={type} variant="secondary">
                       {type}
                     </Badge>
                   ))}

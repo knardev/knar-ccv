@@ -56,67 +56,50 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
   return (
     <>
       <div className="relative group">
-        <HoverCard openDelay={100} closeDelay={0}>
-          <HoverCardTrigger asChild>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
             <AspectRatio
               ratio={16 / 9}
-              className="bg-transparent overflow-hidden rounded-md cursor-pointer"
+              className="bg-transparent border border-slate-400 cursor-pointer overflow-hidden rounded-md"
             >
               <Image
                 src={section.imageUrl}
                 alt={`Section ${section.type ?? "섹션"}`}
                 fill
-                className="h-full w-full rounded-md object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                className="h-full w-full object-cover"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </AspectRatio>
-          </HoverCardTrigger>
-          <HoverCardContent side="top" sideOffset={0} className="w-80">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-lg font-bold">{section.type}</h2>
-                <p className="text-sm text-gray-600">
-                  섹션 설명 또는 추가 정보
-                </p>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>섹션 설정</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col items-center">
+              <AspectRatio ratio={16 / 9} className="w-full">
+                <Image
+                  src={section.image_url[0]}
+                  alt={`Section ${section.type ?? "섹션"}`}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </AspectRatio>
+              <div className="mt-4 w-full">
+                <BaseSelect
+                  options={sectionTypeOptions}
+                  placeholder="섹션 타입을 선택하세요"
+                  value={selectedType ?? ""}
+                  onValueChange={handleTypeChange}
+                  width="w-full"
+                />
               </div>
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    편집
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[600px]">
-                  <DialogHeader>
-                    <DialogTitle>섹션 설정</DialogTitle>
-                  </DialogHeader>
-                  <div className="flex flex-col items-center">
-                    <AspectRatio ratio={16 / 9} className="w-full">
-                      <Image
-                        src={section.image_url[0]}
-                        alt={`Section ${section.type ?? "섹션"}`}
-                        fill
-                        className="object-cover rounded-md"
-                      />
-                    </AspectRatio>
-                    <div className="mt-4 w-full">
-                      <BaseSelect
-                        options={sectionTypeOptions}
-                        placeholder="섹션 타입을 선택하세요"
-                        value={selectedType ?? ""}
-                        onValueChange={handleTypeChange}
-                        width="w-full"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4 flex justify-end">
-                    <SaveButton onSave={handleSave} />
-                  </div>
-                </DialogContent>
-              </Dialog>
             </div>
-          </HoverCardContent>
-        </HoverCard>
+            <div className="mt-4 flex justify-end">
+              <SaveButton onSave={handleSave} />
+            </div>
+          </DialogContent>
+        </Dialog>
         {/* Delete Icon */}
         <DeleteDialogButton
           name={section.type ?? "섹션"}

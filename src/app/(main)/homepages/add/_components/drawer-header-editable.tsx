@@ -17,6 +17,7 @@ import { beingAddedHomepageState } from "../_states/beingAddedHomepage";
 import { addSections } from "../_actions/add-sections";
 import { beingAddedSectionsState } from "../_states/beingAddedSections";
 import { useProfileData } from "@/hooks/useProfileData";
+import { revalidate } from "@/utils/revalidate";
 
 export function HomepageAddDrawerHeaderEditable() {
   const router = useRouter();
@@ -71,13 +72,13 @@ export function HomepageAddDrawerHeaderEditable() {
 
         await addSections(updatedSections);
 
+        toast.success("변경사항이 성공적으로 저장되었습니다.");
+
+        await revalidate(`/explore/homepage/design`, "layout");
         // Reset Recoil states after saving
         resetHomepage();
         resetSections();
-
-        toast.success("변경사항이 성공적으로 저장되었습니다.");
-        router.refresh();
-        router.push(`/homepages/${newHomepage.id}`);
+        router.replace(`/homepages/${newHomepage.id}`);
       } catch (error) {
         console.error("Error saving changes:", error);
         toast.error("변경사항을 저장하는 중 오류가 발생했습니다.");

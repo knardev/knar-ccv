@@ -18,6 +18,7 @@ interface DeleteDialogButtonProps {
   name: string; // Name of the item to be deleted
   onDelete: () => Promise<void>; // Callback function to handle the delete action
   navigateBack?: boolean; // Whether to navigate back after deletion
+  navigateTo?: string; // URL to navigate to after deletion
   trigger?: React.ReactNode; // Custom trigger button
 }
 
@@ -25,6 +26,7 @@ export const DeleteDialogButton: React.FC<DeleteDialogButtonProps> = ({
   name,
   onDelete,
   navigateBack = false,
+  navigateTo,
   trigger,
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -34,27 +36,18 @@ export const DeleteDialogButton: React.FC<DeleteDialogButtonProps> = ({
     setIsDeleting(true);
     try {
       await onDelete();
-
-      if (navigateBack) {
-        // Get the previous URL from document.referrer
-        const previousURL = document.referrer;
-
-        // Ensure previousURL is within the same origin for security
-        if (
-          previousURL &&
-          new URL(previousURL).origin === window.location.origin
-        ) {
-          router.push(previousURL);
-        } else {
-          // Fallback to a default URL if referrer is not available or from a different origin
-          router.push("/");
-        }
-      }
     } catch (error) {
       console.error("Error deleting item:", error);
     } finally {
       setIsDeleting(false);
     }
+    // if (navigateBack || navigateTo) {
+    //   if (navigateBack) {
+    //     router.back();
+    //   } else {
+    //     if (navigateTo) router.push(navigateTo);
+    //   }
+    // }
   };
 
   return (

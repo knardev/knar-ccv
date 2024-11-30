@@ -10,7 +10,7 @@ import {
 
 export function IndustrySelectorGroup() {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex space-x-2">
       <QueryMultiSelector
         options={companyCategories}
         placeholder="기업 카테고리"

@@ -1,24 +1,19 @@
 // components/HomepageDetail.tsx
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 import { Tables } from "@/types/database.types";
 import { Separator } from "@/components/ui/separator";
 import { SectionPreviewCard } from "./section-preview-card";
 import { typeOrderMap } from "../options";
+import { Badge } from "@/components/ui/badge";
 
 type Homepage = Tables<"homepages">;
 type Section = Tables<"sections">;
@@ -60,36 +55,8 @@ export function HomepageDetailDrawerContent({
         className="max-w-full md:min-w-[450px]"
       >
         <ResizablePanel defaultSize={70}>
-          <ScrollArea className="h-[77vh] p-4">
-            <div className="flex justify-center mb-3">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {sortedSections.map((section) => (
-                    <CarouselItem key={section.id}>
-                      <AspectRatio
-                        ratio={16 / 9}
-                        className="bg-transparent rounded-md"
-                      >
-                        <Image
-                          src={
-                            section.image_url[0] ??
-                            "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                          }
-                          alt={`${data.name}/${section.type}`}
-                          fill
-                          className="h-full w-full rounded-md object-cover"
-                          placeholder="blur"
-                          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-                        />
-                      </AspectRatio>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                {/* <CarouselPrevious /> */}
-                {/* <CarouselNext /> */}
-              </Carousel>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
+          <div className="p-4 h-[77vh] overflow-y-auto">
+            <div className="grid grid-cols-1 gap-10">
               {sectionImages.map((section, index) => (
                 <SectionPreviewCard
                   section={section}
@@ -97,37 +64,79 @@ export function HomepageDetailDrawerContent({
                 />
               ))}
             </div>
-          </ScrollArea>
+          </div>
         </ResizablePanel>
         <ResizableHandle disabled className="w-0" />
         <ResizablePanel defaultSize={30}>
           <ScrollArea className="h-[77vh]">
             <div className="p-4">
               <h1 className="text-2xl font-bold">{data.name}</h1>
-              <p className="mt-4 text-gray-600 break-keep">
+              <p className="mt-4 text-gray-600 break-keep max-h-20 p-2 border rounded-sm">
                 {data.description}
               </p>
-              <p className="mt-4 text-gray-600">링크 | {data.url}</p>
-              <p className="mt-4 text-gray-600">
-                기업분류 | {data.company_category}
-              </p>
-              <Separator className="my-4" />
+
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">링크</p>
+                <Link target="_blank" href={data.url} passHref>
+                  <Button variant="outline">
+                    <ExternalLink size={16} />
+                    홈페이지 방문
+                  </Button>
+                </Link>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">기업분류</p>
+                <p className="flex flex-wrap gap-1">{data.company_category}</p>
+              </div>
+              <Separator className="my-8" />
               <h1 className="text-2xl font-bold">디자인 정보</h1>
-              <p className="mt-4 text-gray-600">무드 | {data.design_mood}</p>
-              <p className="mt-4 text-gray-600">
-                욕구유형 | {data.design_desire_type}
-              </p>
-              <p className="mt-4 text-gray-600">
-                메인컬러 | {data.primary_color}
-              </p>
-              <Separator className="my-4" />
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">디자인 방향성</p>
+                <div className="flex flex-wrap gap-1">
+                  {data.design_desire_types?.map((type) => (
+                    <Badge
+                      key={type}
+                      variant="secondary"
+                      className="bg-yellow-100 hover:bg-yellow-100 hover:bg-opacity-50 text-yellow-800"
+                    >
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">디자인 톤앤매너</p>
+                <div className="flex flex-wrap gap-1">
+                  {data.design_moods?.map((type) => (
+                    <Badge key={type} variant="secondary">
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              {/* <p className="mt-4 text-gray-600">
+                메인 컬러 | {data.primary_color}
+              </p> */}
+              <Separator className="my-8" />
               <h1 className="text-2xl font-bold">기획 정보</h1>
-              <p className="mt-4 text-gray-600">
-                악당 | {data.villian_deficiency}
-              </p>
-              <p className="mt-4 text-gray-600">
-                특장점 | {data.unique_selling_point}
-              </p>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">악당</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.villian_deficiency}
+                </p>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">특장점</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.unique_selling_point}
+                </p>
+              </div>
+              <div className="my-6 flex">
+                <p className="w-[25%] text-gray-600">방문자 니즈</p>
+                <p className="flex flex-wrap gap-1 h-10">
+                  {data.visitor_needs}
+                </p>
+              </div>
             </div>
           </ScrollArea>
         </ResizablePanel>

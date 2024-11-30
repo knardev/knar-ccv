@@ -3,8 +3,8 @@
 "use client";
 
 import React from "react";
+import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
-
 import { Badge } from "@/components/ui/badge";
 import {
   Command,
@@ -23,16 +23,20 @@ export interface BaseMultiSelectorProps {
   renderItem?: (option: Option, isSelected: boolean) => React.ReactNode;
   values?: string[];
   maxBadges?: number;
+  badgeColor?: string;
+  badgeTextColor?: string;
 }
 
 export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
   options,
-  placeholder = "Select options...",
+  placeholder = "옵션을 선택하세요",
   width = "w-full",
+  values = [],
   onValuesChange,
   renderItem,
-  values = [],
   maxBadges = 2,
+  badgeColor,
+  badgeTextColor,
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -151,12 +155,19 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
       >
         <div
           className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 cursor-pointer"
-          onClick={toggleDropdown}
+          // onClick={toggleDropdown}
         >
           <div className="flex flex-wrap gap-1">
             {/* Display selected badges up to maxBadges */}
             {selected.slice(0, maxBadges).map((option) => (
-              <Badge key={option.value} variant="secondary">
+              <Badge
+                key={option.value}
+                variant="secondary"
+                className={cn(
+                  badgeColor,
+                  `hover:bg-opacity-0.5 hover:${badgeColor}`
+                )}
+              >
                 {option.label}
                 <button
                   className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -166,18 +177,40 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
                   }}
                   aria-label={`Remove ${option.label}`}
                 >
-                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                  <X
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground hover:text-foreground",
+                      badgeTextColor
+                    )}
+                  />
                 </button>
               </Badge>
             ))}
             {/* Show "+x more" badge if necessary */}
             {additionalSelected > 0 && (
-              <Badge variant="secondary">+{additionalSelected} more</Badge>
+              // <Badge variant="secondary">+{additionalSelected} more</Badge>
+              // badegeTextColor, badgeColor 모두 className 추가
+              <Badge
+                variant="secondary"
+                className={cn(
+                  badgeColor,
+                  badgeTextColor,
+                  `hover:bg-opacity-0.5 hover:${badgeColor}`
+                )}
+              >
+                +{additionalSelected} more
+              </Badge>
             )}
-            {/* Placeholder when no items are selected */}
-            {selected.length === 0 && (
-              <span className="text-muted-foreground">{placeholder}</span>
-            )}
+            {/* Search Input */}
+            <CommandPrimitive.Input
+              ref={inputRef}
+              value={inputValue}
+              onValueChange={setInputValue}
+              onBlur={() => setOpen(false)}
+              onFocus={() => setOpen(true)}
+              placeholder={placeholder}
+              className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
+            />
           </div>
         </div>
         <div className="relative mt-2">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { HomepageAddDrawerHeaderEditable } from "./drawer-header-editable";
@@ -15,13 +15,7 @@ export function HomepageAddDrawer({ accountRole }: HomepageAddDrawerProps) {
   const router = useRouter();
 
   const onClose = () => {
-    if (window.history.length > 2) {
-      // Go back to the previous page if history exists
-      router.back();
-    } else {
-      // Redirect to the homepage if no history exists
-      router.push("/");
-    }
+    router.back();
   };
 
   if (accountRole !== "ADMIN") {

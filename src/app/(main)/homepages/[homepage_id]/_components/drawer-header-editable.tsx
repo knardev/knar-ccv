@@ -16,6 +16,7 @@ import { SaveButton } from "@/components/ui-custom/save-button";
 import { Enums, Tables } from "@/types/database.types";
 import { updateHomepage } from "../_actions/update-homepage";
 import { deleteHomepage } from "../_actions/delete-homepage";
+import { revalidate } from "@/utils/revalidate";
 
 type Homepage = Tables<"homepages">;
 
@@ -44,8 +45,9 @@ export function HomepageDetailDrawerHeaderEditable({
     router.back();
   };
 
-  const handleDeleteHomepage = async () => {
+  const onDelete = async () => {
     await deleteHomepage(data.id);
+    await revalidate("/explore/homepage/design", "page");
   };
 
   return (
@@ -67,11 +69,7 @@ export function HomepageDetailDrawerHeaderEditable({
               취소
             </Button>
             <SaveButton onSave={handleSave} />
-            <DeleteDialogButton
-              name={data.name}
-              onDelete={handleDeleteHomepage}
-              navigateBack={true}
-            />
+            <DeleteDialogButton name={data.name} onDelete={onDelete} />
           </div>
         </div>
       </DrawerTitle>

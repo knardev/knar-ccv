@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
 import { Enums, Tables } from "@/types/database.types";
 import { deleteHomepage } from "../_actions/delete-homepage";
+import { revalidate } from "@/utils/revalidate";
 
 type Homepage = Tables<"homepages">;
 
@@ -26,8 +27,9 @@ export function HomepageDetailDrawerHeader({
   data,
   accountRole,
 }: HomepageDetailDrawerProps) {
-  const handleDeleteHomepage = async () => {
+  const onDelete = async () => {
     await deleteHomepage(data.id);
+    await revalidate("/explore/homepage/design", "layout");
   };
 
   return (
@@ -44,31 +46,27 @@ export function HomepageDetailDrawerHeader({
             <h1 className="text-2xl font-bold">{data.name}</h1>
           </div>
           <div className="flex space-x-1">
-            <Button variant="ghost" className="text-lg">
+            {/* <Button variant="ghost" className="text-lg">
               <Bookmark />
               저장
             </Button>
             <Button variant="ghost" className="text-lg">
               <Share2 />
               공유
-            </Button>
+            </Button> */}
             {accountRole === "ADMIN" && (
               <>
-                <Button variant="ghost" className="text-lg">
+                {/* <Button variant="ghost" className="text-lg">
                   <ImagePlus />
                   섹션 추가
-                </Button>
+                </Button> */}
                 <Link href={`/homepages/${data.id}?mode=edit`}>
                   <Button variant="ghost" className="text-lg">
                     <Pencil />
                     수정
                   </Button>
                 </Link>
-                <DeleteDialogButton
-                  name={data.name}
-                  onDelete={handleDeleteHomepage}
-                  navigateBack={true}
-                />
+                <DeleteDialogButton name={data.name} onDelete={onDelete} />
               </>
             )}
           </div>

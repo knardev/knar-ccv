@@ -12,7 +12,7 @@ interface HomepageWithSections extends Homepage {
 
 export async function fetchHomepageWithSections(
   homepageId: string
-): Promise<HomepageWithSections> {
+): Promise<HomepageWithSections | null> {
   const query = defineFetchHomepageWithSectionsQuery(homepageId);
 
   const { data, error } = await query;
@@ -23,7 +23,7 @@ export async function fetchHomepageWithSections(
   }
 
   if (!data || data.length === 0) {
-    throw new Error(`No homepage found with ID: ${homepageId}`);
+    return null;
   }
 
   return data[0]; // Return the first item since we expect a single homepage

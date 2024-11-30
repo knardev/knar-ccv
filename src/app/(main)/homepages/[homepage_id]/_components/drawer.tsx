@@ -8,6 +8,7 @@ import { HomepageDetailDrawerContent } from "./drawer-content";
 import { HomepageDetailDrawerHeaderEditable } from "./drawer-header-editable";
 import { HomepageDetailDrawerContentEditable } from "./drawer-content-editable";
 import { Enums, Tables } from "@/types/database.types";
+import { usePreviousSearchParams } from "@/hooks/use-previous-search-params";
 
 type Homepage = Tables<"homepages">;
 
@@ -16,7 +17,7 @@ interface HomepageWithSections extends Homepage {
 }
 
 interface HomepageDetailDrawerProps {
-  data: HomepageWithSections;
+  data: HomepageWithSections | null;
   accountRole: Enums<"account_role">;
 }
 
@@ -25,31 +26,22 @@ export function HomepageDetailDrawer({
   accountRole,
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
-
   const searchParams = useSearchParams();
+  const { moveToPreviousSearchParams } = usePreviousSearchParams();
+
   const mode = React.useMemo(() => {
     return searchParams.get("mode") || "view";
   }, [searchParams]);
 
   const onClose = () => {
-    const referrer = document.referrer; // Get the referring URL
-    const currentOrigin = window.location.origin;
-
-    if (referrer && referrer.includes(currentOrigin)) {
-      const relativeReferrer = referrer.replace(currentOrigin, "");
-
-      if (relativeReferrer.includes("/add")) {
-        // If the referrer contains '/add', go back two pages
-        window.history.go(-2);
-      } else {
-        // Otherwise, go back one page
-        router.back();
-      }
-    } else {
-      // Redirect to the homepage if no valid referrer exists
-      router.push("/");
-    }
+    router.back();
   };
+
+  if (!data) {
+    console.error("Homepage not found");
+    moveToPreviousSearchParams();
+    return null;
+  }
 
   if (mode === "edit" && accountRole !== "ADMIN") {
     // Redirect to the homepage if the user is not an admin

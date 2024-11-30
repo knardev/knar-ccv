@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { HomepageDetailDrawerHeader } from "./drawer-header";
@@ -27,15 +26,9 @@ export function HomepageDetailDrawer({
   accountRole,
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { moveToPreviousSearchParams } = usePreviousSearchParams();
 
-  if (!data) {
-    console.error("Homepage not found");
-    moveToPreviousSearchParams();
-    return null;
-  }
-
-  const searchParams = useSearchParams();
   const mode = React.useMemo(() => {
     return searchParams.get("mode") || "view";
   }, [searchParams]);
@@ -43,6 +36,12 @@ export function HomepageDetailDrawer({
   const onClose = () => {
     router.back();
   };
+
+  if (!data) {
+    console.error("Homepage not found");
+    moveToPreviousSearchParams();
+    return null;
+  }
 
   if (mode === "edit" && accountRole !== "ADMIN") {
     // Redirect to the homepage if the user is not an admin

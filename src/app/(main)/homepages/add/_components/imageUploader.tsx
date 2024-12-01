@@ -1,10 +1,10 @@
 // components/ImageUploader.tsx
 "use client";
 
-import React, { useRef, useState, useEffect, useCallback, use } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useRecoilState } from "recoil";
 import { Images } from "lucide-react";
-import { beingAddedSectionsState } from "../_states/beingAddedSections";
+import { beingAddedHomepageState } from "../_states";
 import { createClient } from "@/utils/supabase/browser";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
@@ -12,13 +12,19 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { TablesInsert } from "@/types/database.types";
 import { SectionCard } from "./section-card";
 import { useProfileData } from "@/hooks/useProfileData";
+import { PageWithSectionsInsert } from "../types";
 
 type Section = TablesInsert<"sections">;
 
-export function ImageUploader() {
-  const [isUploading, setIsUploading] = useState(false);
+interface ImageUploaderProps {
+  selectedPage: PageWithSectionsInsert;
+}
 
-  const [sections, setSections] = useRecoilState(beingAddedSectionsState);
+export function ImageUploader({ selectedPage }: ImageUploaderProps) {
+  const [isUploading, setIsUploading] = useState(false);
+  const [homepageState, setHomepageState] = useRecoilState(
+    beingAddedHomepageState
+  );
   const supabase = createClient();
   const uploadAreaRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +71,15 @@ export function ImageUploader() {
           }
         }
 
-        setSections((prev) => [...prev, ...newSections]);
+        // Update the homepage state by adding new sections to the selected page
+        setHomepageState((prevState) => ({
+          ...prevState,
+          pages: prevState.pages.map((page) =>
+            page.id === selectedPage.id
+              ? { ...page, sections: [...page.sections, ...newSections] }
+              : page
+          ),
+        }));
         toast.success("이미지가 성공적으로 업로드되었습니다.");
       } catch (error) {
         console.error("Error uploading files:", error);
@@ -74,7 +88,7 @@ export function ImageUploader() {
         setIsUploading(false); // End uploading
       }
     },
-    [supabase, setSections, profile]
+    [supabase, setHomepageState, profile, selectedPage]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,6 +202,10 @@ export function ImageUploader() {
     };
   }, [isUploading, handlePaste, handleFileUpload]);
 
+  const selectedPageSections = selectedPage?.sections || [];
+
+  console.log("selectedPageSections", selectedPageSections);
+
   return (
     <div className="flex flex-col items-center mb-3 w-[90%]">
       <div ref={uploadAreaRef} className="w-full">
@@ -240,9 +258,9 @@ export function ImageUploader() {
       </div>
       {/* Image Preview Grid */}
       <div className="grid grid-cols-3 gap-2 mt-4 w-full">
-        {sections.map((section, index) => (
+        {selectedPageSections.map((section, index) => (
           <div key={index}>
-            <SectionCard section={section} />
+            <SectionCard section={section} pageId={selectedPage.id ?? ""} />
           </div>
         ))}
       </div>

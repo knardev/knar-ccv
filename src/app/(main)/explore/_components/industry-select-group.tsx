@@ -15,8 +15,8 @@ export function IndustrySelectorGroup() {
         options={companyCategories}
         placeholder="기업 카테고리"
         queryParam="company_category"
-        width="w-[230px]"
-        maxBadges={1}
+        width="w-[280px]"
+        maxBadges={2}
       />
       {/* <Selector
         options={industryCategories}

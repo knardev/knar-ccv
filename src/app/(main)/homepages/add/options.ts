@@ -184,3 +184,36 @@ export const sectionTypeOptions: Option<SectionType>[] = [
   { value: "뉴스레터 섹션", label: "뉴스레터 섹션" },
   { value: "기타", label: "기타" },
 ];
+
+
+export type pageCategory = Enums<"page_category">;
+
+// Page category options
+export const pageCategoryOptions: Option<pageCategory>[] = [
+  { value: "메인 페이지", label: "메인 페이지" },
+  { value: "소개 페이지", label: "소개 페이지" },
+  { value: "기능 페이지", label: "기능 페이지" },
+  { value: "뉴스 페이지", label: "뉴스 페이지" },
+  { value: "구성원 페이지", label: "구성원 페이지" },
+  { value: "컨텍 페이지", label: "컨텍 페이지" },
+  { value: "기타", label: "기타" },
+];
+
+export type pageSubcategory = Enums<"page_subcategory">;
+
+// Page subcategory options
+export const pageSubcategoryOptions: Option<pageSubcategory>[] = [
+  // <"인사말" | "미션/비전" | "CI" | "연혁" | "팀소개" | "블로그" | "언론보도" | "서비스 소개" | "분야 소개" | "오시는 길" | "쇼핑몰">
+  { value: "인사말", label: "인사말" },
+  { value: "미션/비전", label: "미션/비전" },
+  { value: "CI", label: "CI" },
+  { value: "연혁", label: "연혁" },
+  { value: "팀소개", label: "팀소개" },
+  { value: "블로그", label: "블로그" },
+  { value: "언론보도", label: "언론보도" },
+  { value: "서비스 소개", label: "서비스 소개" },
+  { value: "분야 소개", label: "분야 소개" },
+  { value: "오시는 길", label: "오시는 길" },
+  { value: "쇼핑몰", label: "쇼핑몰" },
+  { value: "기타", label: "기타" },
+];

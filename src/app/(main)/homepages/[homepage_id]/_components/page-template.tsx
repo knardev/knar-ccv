@@ -1,6 +1,6 @@
 import React from "react";
 import { HomepageDetailDrawer } from "./drawer";
-import { fetchHomepageDetailPageData } from "../_actions/fetch-page-data";
+import { fetchAllData } from "../_actions/fetch-all-data";
 
 interface HomepageDetailPageProps {
   homepage_id: string;
@@ -9,13 +9,7 @@ interface HomepageDetailPageProps {
 export async function HomepageDetailPageTemplate({
   homepage_id,
 }: HomepageDetailPageProps) {
-  const { accountRole, homepageWithSections } =
-    await fetchHomepageDetailPageData(homepage_id);
+  const { accountRole, data } = await fetchAllData(homepage_id);
 
-  return (
-    <HomepageDetailDrawer
-      data={homepageWithSections}
-      accountRole={accountRole}
-    />
-  );
+  return <HomepageDetailDrawer data={data} accountRole={accountRole} />;
 }

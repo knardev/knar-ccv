@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { HomepageAddDrawerHeaderEditable } from "./drawer-header-editable";

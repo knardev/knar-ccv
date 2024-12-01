@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useRecoilState } from "recoil";
-import { beingAddedSectionsState } from "../_states/beingAddedSections";
+import { beingAddedHomepageState } from "../_states";
 import { BaseSelect } from "@/components/ui-custom/base-select";
 import { sectionTypeOptions } from "../options";
 import { Enums, TablesInsert } from "@/types/database.types";
@@ -21,17 +21,32 @@ type Section = TablesInsert<"sections">;
 
 interface SectionCardProps {
   section: Section;
+  pageId: string;
 }
 
-export const SectionCard: React.FC<SectionCardProps> = ({ section }) => {
-  const [sections, setSections] = useRecoilState(beingAddedSectionsState);
+export const SectionCard: React.FC<SectionCardProps> = ({
+  section,
+  pageId,
+}) => {
+  const [homepageState, setHomepageState] = useRecoilState(
+    beingAddedHomepageState
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(section.type);
 
   const handleDelete = () => {
-    setSections((prev) =>
-      prev.filter((s) => s.image_url !== section.image_url)
-    );
+    // Update the homepage state by removing the section from the page's sections
+    setHomepageState((prevState) => ({
+      ...prevState,
+      pages: prevState.pages.map((page) =>
+        page.id === pageId
+          ? {
+              ...page,
+              sections: page.sections.filter((s) => s.id !== section.id),
+            }
+          : page
+      ),
+    }));
   };
 
   const handleTypeChange = (value: string) => {
@@ -39,11 +54,20 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section }) => {
   };
 
   const handleSave = () => {
-    setSections((prev) =>
-      prev.map((s) =>
-        s.image_url === section.image_url ? { ...s, type: selectedType } : s
-      )
-    );
+    // Update the section's type in the homepage state
+    setHomepageState((prevState) => ({
+      ...prevState,
+      pages: prevState.pages.map((page) =>
+        page.id === pageId
+          ? {
+              ...page,
+              sections: page.sections.map((s) =>
+                s.id === section.id ? { ...s, type: selectedType } : s
+              ),
+            }
+          : page
+      ),
+    }));
     setIsDialogOpen(false);
   };
 
@@ -61,6 +85,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({ section }) => {
                 alt={`Section ${section.type}`}
                 fill
                 className="h-full w-full rounded-md object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </AspectRatio>
           </DialogTrigger>

@@ -115,51 +115,67 @@ export type Database = {
       }
       pages: {
         Row: {
+          category: Database["public"]["Enums"]["page_category"]
           created_at: string
+          homepage_id: string
           id: string
-          page_category: Database["public"]["Enums"]["page_category"] | null
-          page_subcategory:
-            | Database["public"]["Enums"]["page_subcategory"]
-            | null
+          sub_category: Database["public"]["Enums"]["page_subcategory"] | null
         }
         Insert: {
+          category: Database["public"]["Enums"]["page_category"]
           created_at?: string
+          homepage_id: string
           id?: string
-          page_category?: Database["public"]["Enums"]["page_category"] | null
-          page_subcategory?:
-            | Database["public"]["Enums"]["page_subcategory"]
-            | null
+          sub_category?: Database["public"]["Enums"]["page_subcategory"] | null
         }
         Update: {
+          category?: Database["public"]["Enums"]["page_category"]
           created_at?: string
+          homepage_id?: string
           id?: string
-          page_category?: Database["public"]["Enums"]["page_category"] | null
-          page_subcategory?:
-            | Database["public"]["Enums"]["page_subcategory"]
-            | null
+          sub_category?: Database["public"]["Enums"]["page_subcategory"] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "pages_homepage_id_fkey"
+            columns: ["homepage_id"]
+            isOneToOne: false
+            referencedRelation: "homepages"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
           account_role: Database["public"]["Enums"]["account_role"]
           created_at: string
+          homepage_id: string | null
           id: string
           user_id: string | null
         }
         Insert: {
           account_role?: Database["public"]["Enums"]["account_role"]
           created_at?: string
+          homepage_id?: string | null
           id?: string
           user_id?: string | null
         }
         Update: {
           account_role?: Database["public"]["Enums"]["account_role"]
           created_at?: string
+          homepage_id?: string | null
           id?: string
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_homepage_id_fkey"
+            columns: ["homepage_id"]
+            isOneToOne: false
+            referencedRelation: "homepages"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sections: {
         Row: {
@@ -169,6 +185,7 @@ export type Database = {
           id: string
           image_url: string[]
           main_copy: string | null
+          page_id: string | null
           page_sequence: number | null
           profile_id: string | null
           sub_copy: string | null
@@ -181,6 +198,7 @@ export type Database = {
           id?: string
           image_url: string[]
           main_copy?: string | null
+          page_id?: string | null
           page_sequence?: number | null
           profile_id?: string | null
           sub_copy?: string | null
@@ -193,6 +211,7 @@ export type Database = {
           id?: string
           image_url?: string[]
           main_copy?: string | null
+          page_id?: string | null
           page_sequence?: number | null
           profile_id?: string | null
           sub_copy?: string | null
@@ -204,6 +223,13 @@ export type Database = {
             columns: ["homepage_id"]
             isOneToOne: false
             referencedRelation: "homepages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sections_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
             referencedColumns: ["id"]
           },
           {
@@ -327,6 +353,7 @@ export type Database = {
         | "뉴스 페이지"
         | "구성원 페이지"
         | "컨텍 페이지"
+        | "기타"
       page_subcategory:
         | "인사말"
         | "미션/비전"
@@ -339,6 +366,7 @@ export type Database = {
         | "분야 소개"
         | "오시는 길"
         | "쇼핑몰"
+        | "기타"
       primary_color:
         | "빨강"
         | "파랑"

@@ -11,15 +11,10 @@ import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button"
 import { Enums, Tables } from "@/types/database.types";
 import { deleteHomepage } from "../_actions/delete-homepage";
 import { revalidate } from "@/utils/revalidate";
-
-type Homepage = Tables<"homepages">;
-
-interface HomepageWithSections extends Homepage {
-  sections: Array<Tables<"sections">>;
-}
+import { HomepageWithPageAndSections } from "../types";
 
 interface HomepageDetailDrawerProps {
-  data: HomepageWithSections;
+  data: HomepageWithPageAndSections;
   accountRole: Enums<"account_role">;
 }
 
@@ -33,7 +28,7 @@ export function HomepageDetailDrawerHeader({
   };
 
   return (
-    <DrawerHeader>
+    <DrawerHeader className="border-b border-slate-200 p-4 gap-0">
       <DrawerTitle>
         <div className="flex justify-between">
           <div className="flex items-center space-x-4">

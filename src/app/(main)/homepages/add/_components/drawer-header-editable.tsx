@@ -12,20 +12,19 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { beingAddedHomepageState } from "../_states";
 import { addHomepage } from "../_actions/add-homepage";
-import { beingAddedHomepageState } from "../_states/beingAddedHomepage";
 import { addSections } from "../_actions/add-sections";
-import { beingAddedSectionsState } from "../_states/beingAddedSections";
+import { addPages } from "../_actions/add-pages";
 import { useProfileData } from "@/hooks/useProfileData";
 import { revalidate } from "@/utils/revalidate";
+import { TablesInsert } from "@/types/database.types";
 
 export function HomepageAddDrawerHeaderEditable() {
   const router = useRouter();
   const addedHomepage = useRecoilValue(beingAddedHomepageState);
-  const addedSections = useRecoilValue(beingAddedSectionsState);
 
-  const resetHomepage = useResetRecoilState(beingAddedHomepageState); // Reset function for homepage
-  const resetSections = useResetRecoilState(beingAddedSectionsState); // Reset function for sections
+  const resetHomepage = useResetRecoilState(beingAddedHomepageState);
 
   const {
     profile,
@@ -57,27 +56,65 @@ export function HomepageAddDrawerHeaderEditable() {
     startTransition(async () => {
       try {
         // Save the homepage first to get the 'homepage_id'
+        const { pages, ...homepageData } = addedHomepage;
         const homepageWithProfile = {
-          ...addedHomepage,
+          ...homepageData,
           profile_id: profile.id,
         };
 
         const newHomepage = await addHomepage(homepageWithProfile);
 
-        // Update sections with the 'homepage_id' and save them
-        const updatedSections = addedSections.map((section) => ({
-          ...section,
-          homepage_id: newHomepage.id,
-        }));
+        // Map temporary page IDs to real IDs
+        const pageIdMap = new Map<string, string>(); // Map<tempId, realId>
 
-        await addSections(updatedSections);
+        // Save pages and collect new pages with real IDs
+        const newPages = [];
+        for (const page of pages) {
+          const { sections, id: tempPageId, ...pageData } = page;
+          const pageWithHomepageId = {
+            ...pageData,
+            homepage_id: newHomepage.id as string,
+          };
+
+          const savedPage = await addPages([pageWithHomepageId]);
+          if (!savedPage || savedPage.length === 0) {
+            throw new Error("Failed to save page");
+          }
+
+          const newPage = savedPage[0];
+          pageIdMap.set(tempPageId ?? "", newPage.id as string);
+          newPages.push({ ...newPage, sections, tempId: tempPageId });
+        }
+
+        // Map temporary section IDs to real IDs if needed
+        // Collect sections to save
+        const sectionsToSave: TablesInsert<"sections">[] = [];
+
+        for (const page of newPages) {
+          const { sections, tempId: tempPageId } = page;
+          const realPageId = page.id;
+
+          for (const section of sections) {
+            const { id: tempSectionId, ...sectionData } = section;
+            const sectionWithIds = {
+              ...sectionData,
+              homepage_id: newHomepage.id as string,
+              page_id: realPageId as string,
+            };
+            sectionsToSave.push(sectionWithIds);
+          }
+        }
+
+        // Save sections
+        if (sectionsToSave.length > 0) {
+          await addSections(sectionsToSave);
+        }
 
         toast.success("변경사항이 성공적으로 저장되었습니다.");
 
         await revalidate(`/explore/homepage/design`, "layout");
         // Reset Recoil states after saving
         resetHomepage();
-        resetSections();
         router.replace(`/homepages/${newHomepage.id}`);
       } catch (error) {
         console.error("Error saving changes:", error);
@@ -87,7 +124,7 @@ export function HomepageAddDrawerHeaderEditable() {
   };
 
   return (
-    <DrawerHeader>
+    <DrawerHeader className="border-b border-slate-200 p-4 gap-0">
       <DrawerTitle>
         <div className="flex justify-between">
           <div className="flex items-center space-x-4">

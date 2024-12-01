@@ -60,7 +60,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
           <DialogTrigger asChild>
             <AspectRatio
               ratio={16 / 9}
-              className="bg-transparent border border-slate-400 cursor-pointer overflow-hidden rounded-md"
+              className="bg-transparent border border-slate-200 cursor-pointer overflow-hidden rounded-md"
             >
               <Image
                 src={section.imageUrl}

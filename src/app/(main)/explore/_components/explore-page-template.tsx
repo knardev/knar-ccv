@@ -36,7 +36,7 @@ export async function ExplorePageTemplate({
 
         {/* Selectors Section */}
         <section className="w-full flex justify-between">
-          <div className="w-full flex space-x-2 h-16">{selectors}</div>
+          <div className="w-full flex space-x-4 h-16">{selectors}</div>
           <div>
             {accountRole === "ADMIN" && (
               <Link href={`/homepages/add`}>

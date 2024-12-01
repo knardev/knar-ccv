@@ -42,7 +42,7 @@ export const HomepagePreviewCard = React.forwardRef<
       </p>
       <AspectRatio
         ratio={16 / 9}
-        className="mt-4 bg-transparent border border-slate-400 cursor-pointer overflow-hidden rounded-md"
+        className="mt-4 bg-transparent border border-slate-200 cursor-pointer overflow-hidden rounded-md"
       >
         <Image
           src={

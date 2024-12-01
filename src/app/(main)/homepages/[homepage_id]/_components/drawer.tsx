@@ -9,15 +9,10 @@ import { HomepageDetailDrawerHeaderEditable } from "./drawer-header-editable";
 import { HomepageDetailDrawerContentEditable } from "./drawer-content-editable";
 import { Enums, Tables } from "@/types/database.types";
 import { usePreviousSearchParams } from "@/hooks/use-previous-search-params";
-
-type Homepage = Tables<"homepages">;
-
-interface HomepageWithSections extends Homepage {
-  sections: Array<Tables<"sections">>;
-}
+import { HomepageWithPageAndSections } from "../types";
 
 interface HomepageDetailDrawerProps {
-  data: HomepageWithSections | null;
+  data: HomepageWithPageAndSections | null;
   accountRole: Enums<"account_role">;
 }
 

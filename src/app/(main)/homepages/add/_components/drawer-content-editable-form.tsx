@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { beingAddedHomepageState } from "../_states/beingAddedHomepage";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -13,9 +12,9 @@ import {
   companyCategories,
   designDesireTypeOptions,
   designMoodOptions,
-  primaryColorOptions,
 } from "../options";
 import { TablesInsert } from "@/types/database.types";
+import { beingAddedHomepageState } from "../_states";
 import { ColorSelectItem } from "@/components/ui-custom/color-select-item";
 
 type Homepage = TablesInsert<"homepages">;

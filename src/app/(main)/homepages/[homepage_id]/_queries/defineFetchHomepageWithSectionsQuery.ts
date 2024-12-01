@@ -1,14 +1,17 @@
 import { QueryData } from "@/utils/types";
 import { createClient } from "@/utils/supabase/server";
 
-// Define the query to fetch a homepage with its sections
-export const defineFetchHomepageWithSectionsQuery = async (homepageId: string) => {
+// Define the query to fetch a homepage with its pages and sections
+export const defineFetchHomepageWithPagesAndSectionsQuery = async (homepageId: string) => {
   const query = createClient()
     .from("homepages")
     .select(
       `
       *,
-      sections(*)
+      pages (
+        *,
+        sections(*)
+      )
     `
     )
     .eq("id", homepageId);
@@ -17,8 +20,6 @@ export const defineFetchHomepageWithSectionsQuery = async (homepageId: string) =
 };
 
 // Type for the query
-export type FetchHomepageWithSections = QueryData<
-  ReturnType<typeof defineFetchHomepageWithSectionsQuery>
+export type FetchHomepageWithPagesAndSections = QueryData<
+  ReturnType<typeof defineFetchHomepageWithPagesAndSectionsQuery>
 >;
-
-

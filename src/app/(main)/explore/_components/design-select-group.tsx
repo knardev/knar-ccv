@@ -13,13 +13,13 @@ import { ColorSelectItem } from "@/components/ui-custom/color-select-item";
 
 export function DesignSelectorGroup() {
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-4">
       <QueryMultiSelector
         options={designDesireTypeOptions}
         placeholder="디자인 방향성"
         queryParam="design_desire_types"
-        width="w-[230px]"
-        maxBadges={1}
+        width="w-[280px]"
+        maxBadges={3}
         badgeColor="bg-yellow-100"
         badgeTextColor="text-yellow-800"
       />
@@ -27,8 +27,8 @@ export function DesignSelectorGroup() {
         options={designMoodOptions}
         placeholder="디자인 톤앤매너"
         queryParam="design_moods"
-        width="w-[230px]"
-        maxBadges={1}
+        width="w-[280px]"
+        maxBadges={2}
       />
       {/* <QueryMultiSelector
         options={primaryColorOptions}

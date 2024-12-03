@@ -95,7 +95,7 @@ export async function addHomepage(homepageData: Homepage): Promise<Homepage> {
 
       // Default favicon if everything fails
       uploadedFaviconUrl =
-        uploadedFaviconUrl || "https://www.google.com/favicon.ico";
+        uploadedFaviconUrl || "https://oguzdjlnwsdproeuoywm.supabase.co/storage/v1/object/public/images/favicons/giigle.ico?t=2024-12-03T10%3A51%3A34.172Z";
 
       return { faviconUrl: uploadedFaviconUrl, metaTitle, metaDescription };
     } catch (error) {

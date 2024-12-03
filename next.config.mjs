@@ -3,10 +3,10 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     remotePatterns: [
-      // {
-      //   protocol: "https",
-      //   hostname: "**",
-      // },
+      {
+        protocol: "https",
+        hostname: "oguzdjlnwsdproeuoywm.supabase.co",
+      },
       // {
       //   protocol: "http",
       //   hostname: "**",

@@ -36,7 +36,7 @@ export default async function login({
     <section className="h-[calc(100vh-57px)] flex flex-1 flex-col justify-center items-center">
       <Card className="mx-auto min-w-96">
         <CardHeader>
-          <CardTitle className="text-2xl">로그인</CardTitle>
+          <CardTitle className="text-2xl">회원가입</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <OAuthButtons lastSignedInMethod={lastSignedInMethod} />
@@ -70,7 +70,7 @@ export default async function login({
               className="relative w-full"
               variant="default"
             >
-              로그인
+              회원가입
               {lastSignedInMethod === "email" && (
                 <div className="absolute top-1/2 -translate-y-1/2 left-full whitespace-nowrap ml-8 bg-accent px-4 py-1 rounded-md text-xs text-foreground/80">
                   <div className="absolute -left-5 top-0 border-background border-[12px] border-r-accent" />

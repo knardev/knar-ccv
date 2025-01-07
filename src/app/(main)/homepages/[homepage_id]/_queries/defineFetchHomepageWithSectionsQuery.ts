@@ -1,4 +1,4 @@
-import { QueryData } from "@/utils/types";
+import { QueryData } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 
 // Define the query to fetch a homepage with its pages and sections

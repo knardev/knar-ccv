@@ -1,19 +1,22 @@
-// components/HomepageDetail.tsx
 import React, { useState } from "react";
+
+// components
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SectionPreviewCard } from "@/app/(main)/homepages/[homepage_id]/_components/section-preview-card";
-import { HomepageDetailDrawerContentEditableForm } from "./drawer-content-editable-form";
-import { typeOrderMap } from "../options";
-import { DrawerContentPageMenu } from "./drawer-content-page-menu";
-import { HomepageWithPageAndSections, PageWithSections } from "../types";
-import { Tables } from "@/types/database.types";
-
-type Section = Tables<"sections">;
+import { SectionPreviewCard } from "@/features/homepage/components/section-preview-card";
+import { HomepageDetailDrawerContentEditableForm } from "@/features/homepage/components/drawer-content-editable-form";
+import { DrawerContentPageMenu } from "@/features/homepage/components/drawer-content-page-menu";
+// types
+import { typeOrderMap } from "@/features/homepage/utils/options";
+import {
+  HomepageWithPageAndSections,
+  PageWithSections,
+  Section,
+} from "@/features/homepage/types/types";
 
 export function HomepageDetailDrawerContentEditable({
   data,

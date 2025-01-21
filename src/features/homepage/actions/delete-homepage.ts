@@ -1,6 +1,6 @@
 "use server";
 
-import { defineDeleteHomepageQuery } from "../_queries/defineDeleteHomepageQuery";
+import { defineDeleteHomepageQuery } from "@/features/homepage/queries/defineDeleteHomepageQuery";
 import { Tables } from "@/types/database.types";
 
 type Homepage = Tables<"homepages">;
@@ -11,7 +11,7 @@ type Homepage = Tables<"homepages">;
  * @returns The deleted homepage data
  */
 export async function deleteHomepage(
-  homepageId: string
+  homepageId: string,
 ): Promise<Homepage> {
   const query = await defineDeleteHomepageQuery(homepageId);
 

@@ -1,6 +1,8 @@
 import React from "react";
+// components
 import { HomepageDetailDrawer } from "./drawer";
-import { fetchAllData } from "../_actions/fetch-all-data";
+// actions
+import { fetchAllData } from "@/features/homepage/actions/fetch-all-data";
 
 interface HomepageDetailPageProps {
   homepage_id: string;

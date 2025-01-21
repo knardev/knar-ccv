@@ -1,4 +1,4 @@
-import { HomepageDetailPageTemplate } from "./_components/page-template";
+import { HomepageDetailPageTemplate } from "@/features/homepage/components/page-template";
 
 export default async function Page({
   params,

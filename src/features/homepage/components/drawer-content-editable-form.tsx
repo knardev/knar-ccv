@@ -1,27 +1,30 @@
 "use client";
 
 import React, { useEffect } from "react";
+// states
+import { beingEdittedHomepageState } from "@/features/homepage/atoms/states";
+// hooks
 import { useRecoilState } from "recoil";
-import { beingEdittedHomepageState } from "../_states/beingEdittedHomepage";
+// components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { BaseSelect } from "@/components/ui-custom/base-select";
 import {
+  BaseMultiSelector,
+  BaseMultiSelectorProps,
+} from "@/components/ui-custom/base-multi-select";
+// import { ColorSelectItem } from "@/components/ui-custom/color-select-item";
+// utils
+import {
   companyCategories,
   designDesireTypeOptions,
   designMoodOptions,
   primaryColorOptions,
-} from "../options";
-import { Tables } from "@/types/database.types";
-import { ColorSelectItem } from "@/components/ui-custom/color-select-item";
-import {
-  BaseMultiSelector,
-  BaseMultiSelectorProps,
-} from "@/components/ui-custom/base-multi-select";
-
-type Homepage = Tables<"homepages">;
+} from "@/features/homepage/utils/options";
+// types
+import { Homepage } from "@/features/homepage/types/types";
 
 export function HomepageDetailDrawerContentEditableForm({
   initialData,

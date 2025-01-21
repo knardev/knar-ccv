@@ -148,34 +148,29 @@ export type Database = {
       profiles: {
         Row: {
           account_role: Database["public"]["Enums"]["account_role"]
+          avatar_url: string | null
           created_at: string
-          homepage_id: string | null
           id: string
+          name: string | null
           user_id: string | null
         }
         Insert: {
           account_role?: Database["public"]["Enums"]["account_role"]
+          avatar_url?: string | null
           created_at?: string
-          homepage_id?: string | null
           id?: string
+          name?: string | null
           user_id?: string | null
         }
         Update: {
           account_role?: Database["public"]["Enums"]["account_role"]
+          avatar_url?: string | null
           created_at?: string
-          homepage_id?: string | null
           id?: string
+          name?: string | null
           user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_homepage_id_fkey"
-            columns: ["homepage_id"]
-            isOneToOne: false
-            referencedRelation: "homepages"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       sections: {
         Row: {

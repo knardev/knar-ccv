@@ -1,4 +1,4 @@
-import { HomepageDetailPageTemplate } from "@/app/(main)/homepages/[homepage_id]/_components/page-template";
+import { HomepageDetailPageTemplate } from "@/features/homepage/components/page-template";
 
 export default async function DrawerPage({
   params,

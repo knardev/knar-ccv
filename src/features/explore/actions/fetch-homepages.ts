@@ -1,19 +1,15 @@
 // actions/fetchHomepages.ts
 "use server";
 
-import { defineFetchHomepagesQuery } from "../query";
-import { parseHomepageFilters } from "../utils";
-import { Tables } from "@/types/database.types";
-
-type Homepage = Tables<"homepages">;
-
-interface HomepageWithSections extends Homepage {
-  sections: Array<Tables<"sections">>;
-}
+import {
+  defineFetchHomepagesQuery,
+  FetchHomepages,
+} from "@/features/explore/queries/define-fetch-homepage";
+import { parseHomepageFilters } from "@/features/explore/utils/utils";
 
 export async function fetchHomepages(
-  searchParams: URLSearchParams
-): Promise<HomepageWithSections[]> {
+  searchParams: URLSearchParams,
+): Promise<FetchHomepages> {
   const filters = parseHomepageFilters(searchParams);
 
   // If no filters are provided, fetch all homepages
@@ -22,8 +18,6 @@ export async function fetchHomepages(
     ? defineFetchHomepagesQuery(filters)
     : defineFetchHomepagesQuery({});
   const { data, error } = await query;
-
-
 
   if (error) {
     console.error("Error fetching homepages:", error);
@@ -52,11 +46,10 @@ export async function fetchHomepages(
 
       // 요소가 모두 일치하는지 확인
       return sortedColumnArray.every(
-        (val, index) => val === sortedFilterArray[index]
+        (val, index) => val === sortedFilterArray[index],
       );
     });
   }
 
   return filteredData;
-
 }

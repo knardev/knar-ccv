@@ -1,3 +1,4 @@
+// components
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -5,13 +6,17 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
-import { ImagePlus, Pencil, Bookmark, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ImagePlus, Pencil, Bookmark, Share2 } from "lucide-react";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
-import { Enums, Tables } from "@/types/database.types";
-import { deleteHomepage } from "../_actions/delete-homepage";
+// actions
+import { deleteHomepage } from "@/features/homepage/actions/delete-homepage";
+// types
+import { Enums } from "@/types/database.types";
+import { HomepageWithPageAndSections } from "@/features/homepage/types/types";
+
+// utils
 import { revalidate } from "@/utils/revalidate";
-import { HomepageWithPageAndSections } from "../types";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections;

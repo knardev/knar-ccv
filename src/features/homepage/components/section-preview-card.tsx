@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
+// hooks
 import { useRouter } from "next/navigation";
+// components
+import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 import {
   HoverCard,
   HoverCardTrigger,
@@ -21,15 +23,17 @@ import {
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
 import { SaveButton } from "@/components/ui-custom/save-button";
 import { BaseSelect } from "@/components/ui-custom/base-select";
-import { sectionTypeOptions } from "@/app/(main)/explore/_types/options";
-import { Enums, Tables } from "@/types/database.types";
-import { deleteSection } from "../_actions/delete-section";
-import { updateSection } from "../_actions/update-section";
-
-type Section = Tables<"sections"> & { imageUrl: string };
+// actions
+import { deleteSection } from "@/features/homepage/actions/delete-section";
+import { updateSection } from "@/features/homepage/actions/update-section";
+// utils
+import { sectionTypeOptions } from "@/features/homepage/utils/options";
+// types
+import { Enums } from "@/types/database.types";
+import { SectionWithImageUrl } from "@/features/homepage/types/types";
 
 interface SectionPreviewCardProps {
-  section: Section;
+  section: SectionWithImageUrl;
 }
 
 export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
@@ -64,7 +68,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
             >
               <Image
                 src={section.imageUrl}
-                alt={`Section ${section.type ?? "섹션"}`}
+                alt={`SectionWithImageUrl ${section.type ?? "섹션"}`}
                 fill
                 className="h-full w-full object-cover"
                 placeholder="blur"
@@ -80,7 +84,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
               <AspectRatio ratio={16 / 9} className="w-full">
                 <Image
                   src={section.image_url[0]}
-                  alt={`Section ${section.type ?? "섹션"}`}
+                  alt={`SectionWithImageUrl ${section.type ?? "섹션"}`}
                   fill
                   className="object-cover rounded-md"
                 />

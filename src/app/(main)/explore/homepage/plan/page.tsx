@@ -2,7 +2,7 @@ import React from "react";
 import { PlanSelectorGroup } from "@/features/explore/components/plan-select-group";
 import { IndustrySelectorGroup } from "@/features/explore/components/industry-select-group";
 import { ExplorePageTemplate } from "@/features/explore/components/explore-page-template";
-import { fetchHomepages } from "@/features/homepage/actions/fetch-homepages";
+import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
 import { normalizeQueryParams } from "@/features/explore/utils/utils";
 import { Tables } from "@/types/database.types";
 

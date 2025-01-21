@@ -1,9 +1,9 @@
 import React from "react";
+// components
 import { Button } from "@/components/ui/button";
-import { Tables } from "@/types/database.types";
-import { PageWithSections } from "../types";
+// types
+import { PageWithSections } from "@/features/homepage/types/types";
 import { cn } from "@/lib/utils";
-type Page = Tables<"pages">;
 
 export function DrawerContentPageMenu({
   pages,

@@ -1,7 +1,6 @@
-// components/HomepageDetail.tsx
+// components
 import React from "react";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -9,15 +8,18 @@ import {
 } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Tables } from "@/types/database.types";
 import { Separator } from "@/components/ui/separator";
-import { SectionPreviewCard } from "./section-preview-card";
-import { typeOrderMap } from "../options";
 import { Badge } from "@/components/ui/badge";
-import { DrawerContentPageMenu } from "./drawer-content-page-menu";
-import { HomepageWithPageAndSections, PageWithSections } from "../types";
-
-type Section = Tables<"sections">;
+import { SectionPreviewCard } from "@/features/homepage/components/section-preview-card";
+import { DrawerContentPageMenu } from "@/features/homepage/components/drawer-content-page-menu";
+import { ExternalLink } from "lucide-react";
+// types
+import { typeOrderMap } from "@/features/homepage/utils/options";
+import {
+  HomepageWithPageAndSections,
+  PageWithSections,
+  Section,
+} from "@/features/homepage/types/types";
 
 export function HomepageDetailDrawerContent({
   data,

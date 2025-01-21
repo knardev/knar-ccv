@@ -2,7 +2,9 @@ import { QueryData } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 
 // Define the query to fetch a homepage with its pages and sections
-export const defineFetchHomepageWithPagesAndSectionsQuery = async (homepageId: string) => {
+export const defineFetchHomepageWithPagesAndSectionsQuery = (
+  homepageId: string,
+) => {
   const query = createClient()
     .from("homepages")
     .select(
@@ -12,7 +14,7 @@ export const defineFetchHomepageWithPagesAndSectionsQuery = async (homepageId: s
         *,
         sections(*)
       )
-    `
+    `,
     )
     .eq("id", homepageId);
 

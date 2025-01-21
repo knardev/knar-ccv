@@ -1,13 +1,14 @@
 // actions/fetchHomepageWithSections.ts
 "use server";
 
-import { defineFetchHomepageWithPagesAndSectionsQuery } from "../_queries/defineFetchHomepageWithSectionsQuery";
-import { Tables } from "@/types/database.types";
-import {HomepageWithPageAndSections} from "../types";
+import {
+  defineFetchHomepageWithPagesAndSectionsQuery,
+  FetchHomepageWithPagesAndSections,
+} from "@/features/homepage/queries/defineFetchHomepageWithSectionsQuery";
 
 export async function fetchHomepageWithPageAndSections(
-  homepageId: string
-): Promise<HomepageWithPageAndSections | null> {
+  homepageId: string,
+): Promise<FetchHomepageWithPagesAndSections[number] | null> {
   const query = defineFetchHomepageWithPagesAndSectionsQuery(homepageId);
 
   const { data, error } = await query;
@@ -21,5 +22,5 @@ export async function fetchHomepageWithPageAndSections(
     return null;
   }
 
-  return data[0] as HomepageWithPageAndSections; // Return the first item with the appropriate type
+  return data[0] as FetchHomepageWithPagesAndSections[number]; // Return the first item with the appropriate type
 }

@@ -1,10 +1,12 @@
 "use client";
 
-import Image from "next/image";
+// states
+import { beingEdittedHomepageState } from "@/features/homepage/atoms/states";
+// hooks
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { beingEdittedHomepageState } from "../_states/beingEdittedHomepage";
-import { CircleX, Save } from "lucide-react";
+//components
+import Image from "next/image";
 import {
   DrawerHeader,
   DrawerTitle,
@@ -13,11 +15,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
 import { SaveButton } from "@/components/ui-custom/save-button";
-import { Enums, Tables } from "@/types/database.types";
-import { updateHomepage } from "../_actions/update-homepage";
-import { deleteHomepage } from "../_actions/delete-homepage";
+import { CircleX, Save } from "lucide-react";
+// actions
+import { updateHomepage } from "@/features/homepage/actions/update-homepage";
+import { deleteHomepage } from "@/features/homepage/actions/delete-homepage";
+// types
+import { Enums } from "@/types/database.types";
+import { HomepageWithPageAndSections } from "@/features/homepage/types/types";
+// utils
 import { revalidate } from "@/utils/revalidate";
-import { HomepageWithPageAndSections } from "../types";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections;

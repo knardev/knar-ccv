@@ -2,14 +2,17 @@
 
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+// components
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { HomepageDetailDrawerHeader } from "./drawer-header";
 import { HomepageDetailDrawerContent } from "./drawer-content";
 import { HomepageDetailDrawerHeaderEditable } from "./drawer-header-editable";
 import { HomepageDetailDrawerContentEditable } from "./drawer-content-editable";
-import { Enums, Tables } from "@/types/database.types";
+// hooks
 import { usePreviousSearchParams } from "@/hooks/use-previous-search-params";
-import { HomepageWithPageAndSections } from "../types";
+// types
+import { Enums } from "@/types/database.types";
+import { HomepageWithPageAndSections } from "../types/types";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections | null;

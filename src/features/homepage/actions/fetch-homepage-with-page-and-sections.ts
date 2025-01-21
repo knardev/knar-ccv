@@ -4,7 +4,7 @@
 import {
   defineFetchHomepageWithPagesAndSectionsQuery,
   FetchHomepageWithPagesAndSections,
-} from "@/features/homepage/queries/defineFetchHomepageWithSectionsQuery";
+} from "@/features/homepage/queries/define-fetch-homepage-with-sections-query";
 
 export async function fetchHomepageWithPageAndSections(
   homepageId: string,

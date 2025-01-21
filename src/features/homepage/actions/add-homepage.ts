@@ -1,20 +1,25 @@
 "use server";
 
-import { defineAddHomepageQuery } from "../query";
-import { TablesInsert } from "@/types/database.types";
 import * as cheerio from "cheerio";
-import { createClient } from "@/utils/supabase/server"; // Import server-side Supabase client
 import { v4 as uuidv4 } from "uuid";
-import fetch from "node-fetch"; // Ensure node-fetch is available in your environment
+import fetch from "node-fetch";
+// queries
+import { defineAddHomepageQuery } from "@/features/homepage/queries/define-add-homepage-query";
+// types
+import { TablesInsert } from "@/types/database.types";
+// utils
+import { createClient } from "@/utils/supabase/server";
 
-type Homepage = TablesInsert<"homepages">;
+type HomepageInsert = TablesInsert<"homepages">;
 
 /**
  * Action to add a new homepage
  * @param homepageData - The data for the new homepage
  * @returns The newly created homepage
  */
-export async function addHomepage(homepageData: Homepage): Promise<Homepage> {
+export async function addHomepage(
+  homepageData: HomepageInsert,
+): Promise<HomepageInsert> {
   // Define the favicon-fetching and meta data logic
   const fetchPageMetadata = async (url: string): Promise<{
     faviconUrl: string | null;
@@ -78,24 +83,30 @@ export async function addHomepage(homepageData: Homepage): Promise<Homepage> {
           const { error: uploadError } = await supabase.storage
             .from("images")
             .upload(filePath, buffer, {
-              contentType: faviconResponse.headers.get("content-type") || undefined,
+              contentType: faviconResponse.headers.get("content-type") ||
+                undefined,
             });
 
           if (uploadError) {
             console.error("Error uploading favicon to Supabase:", uploadError);
           } else {
             // Get the public URL of the uploaded image
-            const { data } = supabase.storage.from("images").getPublicUrl(filePath);
+            const { data } = supabase.storage.from("images").getPublicUrl(
+              filePath,
+            );
             uploadedFaviconUrl = data.publicUrl;
           }
         } else {
-          console.error("Error fetching favicon image:", faviconResponse.statusText);
+          console.error(
+            "Error fetching favicon image:",
+            faviconResponse.statusText,
+          );
         }
       }
 
       // Default favicon if everything fails
-      uploadedFaviconUrl =
-        uploadedFaviconUrl || "https://oguzdjlnwsdproeuoywm.supabase.co/storage/v1/object/public/images/favicons/giigle.ico?t=2024-12-03T10%3A51%3A34.172Z";
+      uploadedFaviconUrl = uploadedFaviconUrl ||
+        "https://oguzdjlnwsdproeuoywm.supabase.co/storage/v1/object/public/images/favicons/giigle.ico?t=2024-12-03T10%3A51%3A34.172Z";
 
       return { faviconUrl: uploadedFaviconUrl, metaTitle, metaDescription };
     } catch (error) {
@@ -107,7 +118,7 @@ export async function addHomepage(homepageData: Homepage): Promise<Homepage> {
   try {
     // Fetch the metadata for the homepage
     const { faviconUrl, metaTitle, metaDescription } = await fetchPageMetadata(
-      homepageData.url
+      homepageData.url,
     );
 
     // Include the metadata in the homepage data, overriding `name` and `description` if applicable

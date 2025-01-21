@@ -1,4 +1,4 @@
-import { FetchHomepageWithPagesAndSections } from "@/features/homepage/queries/defineFetchHomepageWithSectionsQuery";
+import { FetchHomepageWithPagesAndSections } from "@/features/homepage/queries/define-fetch-homepage-with-sections-query";
 
 export type HomepageWithPageAndSections =
     FetchHomepageWithPagesAndSections[number];

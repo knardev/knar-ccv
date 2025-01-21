@@ -24,30 +24,31 @@ export async function TopNavigationMenu() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="flex items-center h-[60px] w-full px-10 bg-background justify-between m-auto fixed top-0 z-50">
-      <div className="flex items-center space-x-4">
-        <Link href="/">크날 CCV</Link>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/explore/homepage/design" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  홈페이지 검색
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            {/* <NavigationMenuItem>
+    <header className="h-16 w-full flex items-center bg-background fixed top-0 z-50">
+      <div className="w-full h-full flex items-center justify-between px-4">
+        <div className="flex items-center space-x-4">
+          <Link href="/">크날 CCV</Link>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/explore/homepage/design" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    홈페이지 검색
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              {/* <NavigationMenuItem>
               <Link href="/explore/section/design" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   섹션
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem> */}
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-      <div className="flex items-center gap-10">
-        {/* <NavigationMenu>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        <div className="flex items-center gap-10">
+          {/* <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/guides" legacyBehavior passHref>
@@ -65,13 +66,14 @@ export async function TopNavigationMenu() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu> */}
-        {user ? (
-          <LoggedInDropdown />
-        ) : (
-          <Link href="/login" passHref>
-            <Button>로그인</Button>
-          </Link>
-        )}
+          {user ? (
+            <LoggedInDropdown />
+          ) : (
+            <Link href="/login" passHref>
+              <Button>로그인</Button>
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

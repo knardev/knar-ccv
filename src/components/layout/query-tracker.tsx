@@ -10,7 +10,7 @@ export const SearchParamsTracker: React.FC = () => {
 
   useEffect(() => {
     storeSearchParams();
-  }, [pathname, searchParams, storeSearchParams]);
+  }, [pathname, searchParams]);
 
   function storeSearchParams() {
     const storage = globalThis?.sessionStorage;

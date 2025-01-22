@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 interface DeleteDialogButtonProps {
   name: string; // Name of the item to be deleted
-  onDelete: () => Promise<void>; // Callback function to handle the delete action
+  onDelete: () => Promise<void> | void;
   navigateBack?: boolean; // Whether to navigate back after deletion
   navigateTo?: string; // URL to navigate to after deletion
   trigger?: React.ReactNode; // Custom trigger button

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Option } from "../../app/(main)/explore/_types/options";
+import { Option } from "@/features/explore/types/options";
 
 export interface BaseSelectorProps {
   id?: string;

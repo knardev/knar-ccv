@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "@/components/provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TopNavigationMenu } from "@/components/layout/navigation-menu";
 
@@ -32,12 +33,19 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <TopNavigationMenu />
-          <main className="pt-[calc(60px+20px)] px-10 h-screen">
-            {/* 스크롤 가능한 영역 */}
-            {children}
-          </main>
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TopNavigationMenu />
+            <main className="pt-16 w-screen h-screen flex flex-col items-center overflow-hidden">
+              {/* 스크롤 가능한 영역 */}
+              {children}
+            </main>
+            <Toaster />
+          </ThemeProvider>
         </body>
       </Providers>
     </html>

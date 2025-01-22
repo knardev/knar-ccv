@@ -13,7 +13,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
-import { Option } from "../../app/(main)/explore/_types/options";
+import { Option } from "@/features/explore/types/options";
 
 export interface BaseMultiSelectorProps {
   options: Option[];
@@ -38,6 +38,7 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
   badgeColor,
   badgeTextColor,
 }) => {
+  console.log(maxBadges);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<Option[]>(() =>
@@ -165,6 +166,7 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
                 variant="secondary"
                 className={cn(
                   badgeColor,
+                  badgeTextColor,
                   `hover:bg-opacity-0.5 hover:${badgeColor}`
                 )}
               >
@@ -191,7 +193,6 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
               // <Badge variant="secondary">+{additionalSelected} more</Badge>
               // badegeTextColor, badgeColor 모두 className 추가
               <Badge
-                variant="secondary"
                 className={cn(
                   badgeColor,
                   badgeTextColor,

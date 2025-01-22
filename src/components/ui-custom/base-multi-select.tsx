@@ -166,6 +166,7 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
                 variant="secondary"
                 className={cn(
                   badgeColor,
+                  badgeTextColor,
                   `hover:bg-opacity-0.5 hover:${badgeColor}`
                 )}
               >
@@ -192,7 +193,6 @@ export const BaseMultiSelector: React.FC<BaseMultiSelectorProps> = ({
               // <Badge variant="secondary">+{additionalSelected} more</Badge>
               // badegeTextColor, badgeColor 모두 className 추가
               <Badge
-                variant="secondary"
                 className={cn(
                   badgeColor,
                   badgeTextColor,

@@ -43,6 +43,7 @@ export function CompanyCategoryCheckboxList() {
           <div
             key={cat.value}
             className="flex items-center space-x-2 px-2 py-1 rounded cursor-pointer hover:bg-muted transition-colors"
+            onClick={() => handleCheckedChange(cat.value, !isChecked)}
           >
             <Checkbox
               id={id}
@@ -50,11 +51,11 @@ export function CompanyCategoryCheckboxList() {
               onCheckedChange={(checked) =>
                 handleCheckedChange(cat.value, Boolean(checked))
               }
-              className="rounded-sm h-5 w-5"
+              className="rounded-sm h-5 w-5 pointer-events-none"
             />
             <Label
               htmlFor={id}
-              className="text-sm font-medium leading-none cursor-pointer"
+              className="text-sm font-medium leading-none cursor-pointer pointer-events-none"
             >
               {cat.label}
             </Label>

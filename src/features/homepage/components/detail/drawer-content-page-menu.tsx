@@ -23,7 +23,7 @@ export function DrawerContentPageMenu({
           onClick={() => handlePageSelect(page)}
           className={cn(
             `${selectedPage?.id === page.id ? "underline font-bold" : ""}`,
-            "text-slate-700"
+            "text-foreground p-2"
           )}
         >
           {page.category}

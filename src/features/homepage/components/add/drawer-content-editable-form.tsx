@@ -42,7 +42,7 @@ export function HomepageAddDrawerContentEditableForm() {
       <div>
         <h1 className="text-2xl font-bold mb-4">기본 정보</h1>
         {/* <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="name">
+          <Label className="w-[25%] text-foreground/70" htmlFor="name">
             이름
           </Label>
           <Input
@@ -54,7 +54,7 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="description">
+          <Label className="w-[25%] text-foreground/70" htmlFor="description">
             설명
           </Label>
           <Input
@@ -66,7 +66,7 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div> */}
         <div className="flex space-x-2 items-center mb-4">
-          <Label className="w-[25%]" htmlFor="url">
+          <Label className="w-[25%] text-foreground/70" htmlFor="url">
             링크
           </Label>
           <Input
@@ -78,7 +78,10 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 items-center">
-          <Label className="w-[25%]" htmlFor="company_category">
+          <Label
+            className="w-[25%] text-foreground/70"
+            htmlFor="company_category"
+          >
             카테고리
           </Label>
           <BaseSelect
@@ -98,7 +101,10 @@ export function HomepageAddDrawerContentEditableForm() {
       <div>
         <h1 className="text-2xl font-bold mb-8">디자인 정보</h1>
         <div className="h-16 flex space-x-2 mb-4">
-          <Label className="w-[25%] mt-2" htmlFor="design_desire_type">
+          <Label
+            className="w-[25%] text-foreground/70 mt-2"
+            htmlFor="design_desire_type"
+          >
             방향성
           </Label>
           <BaseMultiSelector
@@ -112,7 +118,10 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="h-16 flex space-x-2 mb-4">
-          <Label className="w-[25%] mt-2" htmlFor="design_mood">
+          <Label
+            className="w-[25%] text-foreground/70 mt-2"
+            htmlFor="design_mood"
+          >
             톤앤매너
           </Label>
           <BaseMultiSelector
@@ -124,7 +133,7 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         {/* <div className="flex space-x-2 items-center">
-          <Label className="w-[25%]" htmlFor="primary_color">
+          <Label className="w-[25%] text-foreground/70" htmlFor="primary_color">
             메인 컬러
           </Label>
           <BaseSelect
@@ -144,10 +153,13 @@ export function HomepageAddDrawerContentEditableForm() {
       <Separator />
 
       {/* Planning Information */}
-      <div>
+      {/* <div>
         <h1 className="text-2xl font-bold mb-6">기획 정보</h1>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%] mt-2" htmlFor="villian_deficiency">
+          <Label
+            className="w-[25%] text-foreground/70 mt-2"
+            htmlFor="villian_deficiency"
+          >
             악당
           </Label>
           <Textarea
@@ -162,7 +174,10 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%] mt-2" htmlFor="unique_selling_point">
+          <Label
+            className="w-[25%] text-foreground/70 mt-2"
+            htmlFor="unique_selling_point"
+          >
             특장점
           </Label>
           <Textarea
@@ -177,7 +192,10 @@ export function HomepageAddDrawerContentEditableForm() {
           />
         </div>
         <div className="flex space-x-2 mb-4">
-          <Label className="w-[25%] mt-2" htmlFor="visitor_needs">
+          <Label
+            className="w-[25%] text-foreground/70 mt-2"
+            htmlFor="visitor_needs"
+          >
             방문자 니즈
           </Label>
           <Textarea
@@ -189,7 +207,7 @@ export function HomepageAddDrawerContentEditableForm() {
             onChange={(e) => handleInputChange("visitor_needs")(e.target.value)}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

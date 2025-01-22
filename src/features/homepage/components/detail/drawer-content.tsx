@@ -92,12 +92,12 @@ export function HomepageDetailDrawerContent({
           <ScrollArea className="h-[80vh]">
             <div className="p-4">
               <h1 className="text-2xl font-bold">{data.name}</h1>
-              <p className="mt-4 text-gray-600 break-keep max-h-20 p-2 border rounded-sm overflow-y-auto">
+              <p className="mt-4 break-keep max-h-20 p-2 border rounded-sm overflow-y-auto">
                 {data.description}
               </p>
 
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">링크</p>
+                <p className="w-[30%] text-foreground/70">링크</p>
                 <Link target="_blank" href={data.url} passHref>
                   <Button variant="outline">
                     <ExternalLink size={16} />
@@ -106,13 +106,13 @@ export function HomepageDetailDrawerContent({
                 </Link>
               </div>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">기업분류</p>
+                <p className="w-[30%] text-foreground/70">기업분류</p>
                 <p className="flex flex-wrap gap-1">{data.company_category}</p>
               </div>
               <Separator className="my-8" />
               <h1 className="text-2xl font-bold">디자인 정보</h1>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">방향성</p>
+                <p className="w-[30%] text-foreground/70">방향성</p>
                 <div className="flex flex-wrap gap-1">
                   {data.design_desire_types?.map((type) => (
                     <Badge
@@ -126,7 +126,7 @@ export function HomepageDetailDrawerContent({
                 </div>
               </div>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">톤앤매너</p>
+                <p className="w-[30%] text-foreground/70">톤앤매너</p>
                 <div className="flex flex-wrap gap-1">
                   {data.design_moods?.map((type) => (
                     <Badge key={type} variant="secondary">
@@ -141,19 +141,19 @@ export function HomepageDetailDrawerContent({
               <Separator className="my-8" />
               <h1 className="text-2xl font-bold">기획 정보</h1>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">악당</p>
+                <p className="w-[30%] text-foreground/70">악당</p>
                 <p className="flex flex-wrap gap-1 h-10">
                   {data.villian_deficiency ?? "내용이 없습니다."}
                 </p>
               </div>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">특장점</p>
+                <p className="w-[30%] text-foreground/70">특장점</p>
                 <p className="flex flex-wrap gap-1 h-10">
                   {data.unique_selling_point ?? "내용이 없습니다."}
                 </p>
               </div>
               <div className="my-6 flex">
-                <p className="w-[30%] text-gray-600">방문자 니즈</p>
+                <p className="w-[30%] text-foreground/70">방문자 니즈</p>
                 <p className="flex flex-wrap gap-1 h-10">
                   {data.visitor_needs ?? "내용이 없습니다."}
                 </p>

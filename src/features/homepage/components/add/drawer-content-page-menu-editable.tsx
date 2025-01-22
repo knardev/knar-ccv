@@ -111,7 +111,7 @@ export function DrawerContentPageMenuEditable({
             onClick={() => handlePageSelect(page)}
             className={cn(
               selectedPage?.id === page.id ? "underline font-bold" : "",
-              "text-slate-700 p-2"
+              "text-foreground p-2"
             )}
           >
             {page.category}
@@ -138,7 +138,7 @@ export function DrawerContentPageMenuEditable({
       <Button
         variant="link"
         onClick={handleOpenAddDialog}
-        className="text-blue-500"
+        className="text-primary"
       >
         +페이지 추가
       </Button>
@@ -154,7 +154,7 @@ export function DrawerContentPageMenuEditable({
 
           {/* 카테고리 Select */}
           <div className="mt-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium mb-1">
               페이지 카테고리
             </label>
             <Select
@@ -179,7 +179,7 @@ export function DrawerContentPageMenuEditable({
 
           {/* 서브카테고리 Select */}
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium  mb-1">
               페이지 서브카테고리
             </label>
             <Select

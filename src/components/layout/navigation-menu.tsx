@@ -1,5 +1,6 @@
 // top navigation menu with shadcn
 
+// components
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "../ui/button";
 import { LoggedInDropdown } from "@/components/layout/logged-in-dropdown";
+import { ModeToggle } from "@/components/ui-custom/mode-toggle";
 
 import { createClient } from "@/utils/supabase/server";
 
@@ -66,13 +68,16 @@ export async function TopNavigationMenu() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu> */}
-          {user ? (
-            <LoggedInDropdown />
-          ) : (
-            <Link href="/login" passHref>
-              <Button>로그인</Button>
-            </Link>
-          )}
+          <div className="flex items-center gap-4">
+            <ModeToggle />
+            {user ? (
+              <LoggedInDropdown />
+            ) : (
+              <Link href="/login" passHref>
+                <Button>로그인</Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </header>

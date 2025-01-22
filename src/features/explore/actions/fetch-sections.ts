@@ -1,14 +1,17 @@
 // actions/fetchSections.ts
 "use server";
 
-import { defineFetchSectionsQuery } from "../query";
-import { parseSectionFilters } from "../utils";
+// queries
+import { defineFetchSectionsQuery } from "@/features/explore/queries/define-fetch-section-query";
+// utils
+import { parseSectionFilters } from "@/features/explore/utils/utils";
+// types
 import { Tables } from "@/types/database.types";
 
 type Section = Tables<"sections">;
 
 export async function fetchSections(
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams,
 ): Promise<Section[]> {
   const filters = parseSectionFilters(searchParams);
 

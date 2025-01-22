@@ -4,7 +4,7 @@
 import {
   defineFetchHomepagesQuery,
   FetchHomepages,
-} from "@/features/explore/queries/define-fetch-homepage";
+} from "@/features/explore/queries/define-fetch-homepage-query";
 import { parseHomepageFilters } from "@/features/explore/utils/utils";
 
 export async function fetchHomepages(

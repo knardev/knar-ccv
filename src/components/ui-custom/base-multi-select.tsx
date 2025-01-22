@@ -13,7 +13,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
-import { Option } from "../../app/(main)/explore/_types/options";
+import { Option } from "@/features/explore/types/options";
 
 export interface BaseMultiSelectorProps {
   options: Option[];

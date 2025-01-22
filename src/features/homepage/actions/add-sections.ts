@@ -1,16 +1,18 @@
 "use server";
 
-import { defineAddSectionsQuery } from "../query";
-import { TablesInsert } from "@/types/database.types";
-
-type Section = TablesInsert<"sections">;
+// queries
+import { defineAddSectionsQuery } from "@/features/homepage/queries/define-add-section-query";
+// types
+import { Section, SectionInsert } from "@/features/homepage/types/types";
 
 /**
  * Action to add new sections
  * @param sectionsData - Array of sections to add
  * @returns The newly created sections
  */
-export async function addSections(sectionsData: Section[]): Promise<Section[]> {
+export async function addSections(
+  sectionsData: SectionInsert[],
+): Promise<Section[]> {
   const query = defineAddSectionsQuery(sectionsData);
 
   const { data, error } = await query;

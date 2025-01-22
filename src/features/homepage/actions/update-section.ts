@@ -1,7 +1,11 @@
 "use server";
 
-import { defineUpdateSectionQuery } from "../_queries/defineUpdateSectionQuery";
+// queries
+import { defineUpdateSectionQuery } from "@/features/homepage/queries/define-update-section-query";
+// types
 import { Tables } from "@/types/database.types";
+// utils
+import { revalidatePath } from "next/cache";
 
 type Section = Tables<"sections">;
 
@@ -13,8 +17,8 @@ type Section = Tables<"sections">;
  */
 export async function updateSection(
   sectionId: string,
-  updatedData: Partial<Section>
-): Promise<Section> {
+  updatedData: Partial<Section>,
+): Promise<void> {
   const query = await defineUpdateSectionQuery(sectionId, updatedData);
 
   const { data, error } = await query;
@@ -28,5 +32,5 @@ export async function updateSection(
     throw new Error("No data returned after updating section");
   }
 
-  return data[0]; // Return the updated section
+  revalidatePath("/homepages/[homepage_id]", "layout");
 }

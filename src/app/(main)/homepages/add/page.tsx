@@ -1,4 +1,4 @@
-import { HomepageAddPageTemplate } from "./_components/page-template";
+import { HomepageAddPageTemplate } from "@/features/homepage/components/add/page-template";
 
 export default async function DrawerPage() {
   return <HomepageAddPageTemplate />;

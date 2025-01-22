@@ -1,6 +1,7 @@
 // actions/fetchHomepageWithSections.ts
 "use server";
 
+// queries
 import {
   defineFetchHomepageWithPagesAndSectionsQuery,
   FetchHomepageWithPagesAndSections,

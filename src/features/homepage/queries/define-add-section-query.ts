@@ -15,7 +15,7 @@ export const defineAddSectionsQuery = async (sectionsData: SectionInsert[]) => {
   const query = createClient()
     .from("sections")
     .insert(sectionsData)
-    .select();
+    .select("*");
 
   return query;
 };

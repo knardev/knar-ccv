@@ -1,12 +1,17 @@
 "use server";
 
 // queries
-import { defineAddPageQuery } from "@/features/homepage/queries/define-add-page-query";
+import {
+  AddPage,
+  defineAddPageQuery,
+} from "@/features/homepage/queries/define-add-page-query";
+// types
 import { TablesInsert } from "@/types/database.types";
+import { revalidate } from "@/utils/revalidate";
 
 type PageInsert = TablesInsert<"pages">;
 
-export async function addPages(pages: PageInsert[]): Promise<PageInsert[]> {
+export async function addPages(pages: PageInsert[]): Promise<AddPage> {
   // Define the query for adding pages
   const query = defineAddPageQuery(pages);
 
@@ -25,5 +30,6 @@ export async function addPages(pages: PageInsert[]): Promise<PageInsert[]> {
   }
 
   // Return all inserted rows
+  revalidate("/homepages/[homepage_id]", "layout");
   return data;
 }

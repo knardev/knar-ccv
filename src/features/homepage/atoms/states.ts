@@ -1,6 +1,13 @@
 import { atom } from "recoil";
 import { Tables, TablesInsert } from "@/types/database.types";
-import { HomepageWithPageAndSections } from "@/features/homepage/types/types";
+import {
+  HomepageWithPageAndSections,
+  PageInsert,
+  PageWithSections,
+} from "@/features/homepage/types/types";
+
+type HomepageInsert = TablesInsert<"homepages">;
+type SectionInsert = TablesInsert<"sections">;
 
 // Updated Recoil state
 export const beingEdittedHomepageState = atom<Tables<"homepages">>({
@@ -28,65 +35,39 @@ export const beingEdittedHomepageState = atom<Tables<"homepages">>({
   },
 });
 
-type Section = TablesInsert<"sections">;
-export const beingAddedSectionsState = atom<Section[]>({
-  key: "beingAddedSectionsState",
-  default: [],
-});
-
-// Updated Recoil state
-export const beingAddedHomepageState = atom<TablesInsert<"homepages">>({
+export const beingAddedHomepageState = atom<HomepageInsert>({
   key: "beingAddedHomepageState",
   default: {
-    name: "", // Default empty string
-    description: "", // Default empty string
-    url: "", // Default empty string
-    favicon_url: null, // Default null (corrected to match type)
-    company_category: null, // Default null (as per Row type)
-    design_desire_type: null, // Default null (as per Row type)
-    design_mood: null, // Default null (as per Row type)
-    primary_color: null, // Default null (as per Row type)
-    villian_deficiency: null, // Default null (as per Row type)
-    unique_selling_point: null, // Default null (as per Row type)
-    plan_grammar: null, // Default null (as per Row type)
+    name: "",
+    description: "",
+    url: "",
+    favicon_url: null,
+    company_category: null,
+    design_desire_type: null,
+    design_mood: null,
+    primary_color: null,
+    villian_deficiency: null,
+    unique_selling_point: null,
+    plan_grammar: null,
     industry_category: null,
     industry_subcategory: null,
     profile_id: null,
   },
 });
 
-export const beingAddedHomepageState = atom<HomepageWithPageAndSections>({
-  key: "beingAddedHomepageState",
-  default: {
-    name: "", // Default empty string
-    description: "", // Default empty string
-    url: "", // Default empty string
-    favicon_url: null, // Default null
-    company_category: null, // Default null
-    design_desire_type: null, // Default null
-    design_desire_types: null, // Default null
-    design_mood: null, // Default null
-    design_moods: null, // Default null
-    primary_color: null, // Default null
-    visitor_needs: null, // Default null
-    villian_deficiency: null, // Default null
-    unique_selling_point: null, // Default null
-    plan_grammar: null, // Default null
-    industry_category: null, // Default null
-    industry_subcategory: null, // Default null
-    profile_id: null, // Default null,
-    pages: [
-      {
-        id: uuidv4(),
-        sections: [],
-        homepage_id: "", // Default null
-        category: "메인 페이지", // Default empty string
-      },
-    ],
-  },
+export const beingAddedPageWithSectionState = atom<PageWithSections[]>({
+  key: "beingAddedPageState",
+  default: [{
+    id: "TEMP_MAIN_PAGE",
+    homepage_id: "",
+    category: "메인 페이지",
+    sub_category: null,
+    sections: [],
+    created_at: "",
+  }],
 });
 
-export const beingAddedPagesState = atom<Page[]>({
-  key: "beingAddedPagesState",
+export const beingAddedSectionsState = atom<SectionInsert[]>({
+  key: "beingAddedSectionsState",
   default: [],
 });

@@ -1,8 +1,4 @@
-"use client";
-
 import React, { useState } from "react";
-// hooks
-import { useRouter } from "next/navigation";
 // components
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -14,47 +10,43 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "@/components/ui/hover-card";
-import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
-import { SaveButton } from "@/components/ui-custom/save-button";
 import { BaseSelect } from "@/components/ui-custom/base-select";
-// actions
-import { deleteSection } from "@/features/homepage/actions/delete-section";
-import { updateSection } from "@/features/homepage/actions/update-section";
+import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
+import { X, Save } from "lucide-react";
 // utils
 import { sectionTypeOptions } from "@/features/homepage/utils/options";
-// types
-import { Enums } from "@/types/database.types";
-import { SectionWithImageUrl } from "@/features/homepage/types/types";
+import { Enums, TablesInsert } from "@/types/database.types";
+import { PageWithSections, Section } from "@/features/homepage/types/types";
 
-interface SectionPreviewCardProps {
-  section: SectionWithImageUrl;
+interface SectionCardProps {
+  pageId: string;
+  section: Section;
+  handleRemoveSection: (pageId: string, sectionId: string) => void;
+  handleUpdateSectionType: (
+    sectionId: string,
+    type: Enums<"section_type">
+  ) => void;
 }
 
-export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
+export const SectionCard: React.FC<SectionCardProps> = ({
+  pageId,
   section,
+  handleRemoveSection,
+  handleUpdateSectionType,
 }) => {
-  const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(section.type);
 
-  const handleDelete = async () => {
-    await deleteSection(section.id);
-  };
-
-  const handleSave = async () => {
-    await updateSection(section.id, { type: selectedType });
+  const handleDelete = () => {
+    // pageId와 동일한 페이지의 섹션에서 섹션과 동일한 id를 가진 섹션을 제외한 섹션들만 필터링
+    handleRemoveSection(pageId, section.id);
     setIsDialogOpen(false);
-    router.refresh();
   };
 
   const handleTypeChange = (value: string) => {
-    setSelectedType(value as Enums<"section_type">);
+    const newSectionType = value as Enums<"section_type">;
+    handleUpdateSectionType(section.id, newSectionType);
+    setSelectedType(newSectionType);
   };
 
   return (
@@ -64,13 +56,13 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
           <DialogTrigger asChild>
             <AspectRatio
               ratio={16 / 9}
-              className="bg-transparent border border-slate-200 cursor-pointer overflow-hidden rounded-md"
+              className="bg-transparent border border-muted cursor-pointer overflow-hidden shadow-sm rounded-sm"
             >
               <Image
-                src={section.imageUrl}
-                alt={`SectionWithImageUrl ${section.type ?? "섹션"}`}
+                src={section.image_url[0]}
+                alt={`${section.type ?? "섹션"}`}
                 fill
-                className="h-full w-full object-cover"
+                className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
@@ -84,7 +76,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
               <AspectRatio ratio={16 / 9} className="w-full">
                 <Image
                   src={section.image_url[0]}
-                  alt={`SectionWithImageUrl ${section.type ?? "섹션"}`}
+                  alt={`Section ${section.type}`}
                   fill
                   className="object-cover rounded-md"
                 />
@@ -99,26 +91,39 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
                 />
               </div>
             </div>
-            <div className="mt-4 flex justify-end">
-              <SaveButton onSave={handleSave} />
-            </div>
+            {/* <div className="mt-4 flex justify-end">
+              <Button onClick={handleSave}>
+                <Save />
+                저장
+              </Button>
+            </div> */}
           </DialogContent>
         </Dialog>
+
         {/* Delete Icon */}
         <DeleteDialogButton
           name={section.type ?? "섹션"}
           onDelete={handleDelete}
-          navigateBack={true}
+          navigateBack={false}
           trigger={
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-2 right-2 bg-gray-800 text-white rounded-full p-1 opacity-0 group-hover:opacity-100"
+              className="absolute top-2 left-2 bg-gray-800 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <X size={16} />
             </Button>
           }
         />
+
+        <div className="pointer-events-none absolute top-0 left-0 right-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+          {/* 상단 그라데이션 영역 */}
+          <div className="w-full h-10 bg-gradient-to-b from-black/40 to-transparent" />
+          {/* 오른쪽 상단 배지 */}
+          <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 text-white text-sm font-medium rounded-full">
+            {section.type ?? "섹션"}
+          </div>
+        </div>
       </div>
     </>
   );

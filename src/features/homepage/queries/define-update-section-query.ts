@@ -10,9 +10,9 @@ type Section = Tables<"sections">;
  * @param updates - The updates to apply to the section
  * @returns Supabase query to update the section
  */
-export const defineUpdateSectionQuery = async (
+export const defineUpdateSectionQuery = (
   sectionId: string,
-  updates: Partial<Section>
+  updates: Partial<Section>,
 ) => {
   const query = createClient()
     .from("sections")

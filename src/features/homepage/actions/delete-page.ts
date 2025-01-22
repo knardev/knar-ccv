@@ -1,19 +1,22 @@
 "use server";
 
 // queries
-import { defineDeleteHomepageQuery } from "@/features/homepage/queries/define-delete-homepage-query";
+import {
+  defineDeletePageQuery,
+  DeletePage,
+} from "@/features/homepage/queries/define-delete-page-query";
 // utils
 import { revalidatePath } from "next/cache";
 
 /**
- * Action to delete a homepage
- * @param homepageId - The ID of the homepage to delete
- * @returns The deleted homepage data
+ * Action to delete a page
+ * @param pageId - The ID of the page to delete
+ * @returns The deleted page data
  */
-export async function deleteHomepage(
-  homepageId: string,
+export async function deletePage(
+  pageId: string,
 ): Promise<void> {
-  const query = await defineDeleteHomepageQuery(homepageId);
+  const query = await defineDeletePageQuery(pageId);
 
   const { data, error } = query;
 
@@ -22,7 +25,7 @@ export async function deleteHomepage(
     throw new Error("Failed to delete homepage");
   }
 
-  if (!data || data.length === 0) {
+  if (!data) {
     throw new Error("No data returned after deleting homepage");
   }
 

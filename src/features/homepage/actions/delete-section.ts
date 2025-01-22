@@ -1,10 +1,10 @@
 "use server";
 
+// queries
+import { defineDeleteSectionQuery } from "@/features/homepage/queries/define-delete-section-query";
+// utils
 import { revalidatePath } from "next/cache";
-import { defineDeleteSectionQuery } from "../_queries/defineDeleteSectionQuery";
-import { Tables } from "@/types/database.types";
-
-type Section = Tables<"sections">;
+// types
 
 /**
  * Action to delete a section
@@ -24,6 +24,6 @@ export async function deleteSection(sectionId: string) {
   if (!data || data.length === 0) {
     throw new Error("No data returned after deleting section");
   }
-  revalidatePath('/homepages/[homepage_id]');
 
+  revalidatePath("/homepages/[homepage_id]", "layout");
 }

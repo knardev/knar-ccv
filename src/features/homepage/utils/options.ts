@@ -91,12 +91,13 @@ export const industryData: {
 };
 
 // Industry categories options
-export const industryCategories: { value: IndustryCategory; label: string }[] = Object.keys(
-  industryData
-).map((key) => ({
-  value: key as IndustryCategory,
-  label: key,
-}));
+export const industryCategories: { value: IndustryCategory; label: string }[] =
+  Object.keys(
+    industryData,
+  ).map((key) => ({
+    value: key as IndustryCategory,
+    label: key,
+  }));
 
 export const companyCategories: Option<CompanyCategory>[] = [
   { value: "대기업", label: "대기업" },
@@ -105,7 +106,6 @@ export const companyCategories: Option<CompanyCategory>[] = [
   { value: "공공기관,학교,연구실,협회", label: "공공기관,학교,연구실,협회" },
   { value: "이벤트,행사", label: "이벤트,행사" },
   { value: "기타", label: "기타" },
-
 ];
 
 export type DesignDesireType = Enums<"design_desire_type">;
@@ -145,7 +145,6 @@ export const primaryColorOptions: Option<PrimaryColor>[] = [
   { value: "주황", label: "주황" },
   { value: "회색", label: "회색" },
 ];
-
 
 export type PlanGrammar = Enums<"copywriting_grammar">;
 
@@ -204,3 +203,34 @@ export const typeOrderMap: { [key: string]: number } = {
   "뉴스레터 섹션": 15,
   "기타": 16,
 };
+
+export type PageCategory = Enums<"page_category">;
+export type PageSubcategory = Enums<"page_subcategory">;
+
+// Page category options
+// type PageCategory = "기타" | "메인 페이지" | "소개 페이지" | "기능 페이지" | "뉴스 페이지" | "구성원 페이지" | "컨텍 페이지"
+export const pageCategoryOptions: Option<PageCategory>[] = [
+  { value: "메인 페이지", label: "메인 페이지" },
+  { value: "소개 페이지", label: "소개 페이지" },
+  { value: "기능 페이지", label: "기능 페이지" },
+  { value: "뉴스 페이지", label: "뉴스 페이지" },
+  { value: "구성원 페이지", label: "구성원 페이지" },
+  { value: "컨텍 페이지", label: "컨텍 페이지" },
+];
+
+// Page subcategory options
+// type PageSubcategory = "기타" | "인사말" | "미션/비전" | "CI" | "연혁" | "팀소개" | "블로그" | "언론보도" | "서비스 소개" | "분야 소개" | "오시는 길" | "쇼핑몰"
+export const pageSubcategoryOptions: Option<PageSubcategory>[] = [
+  { value: "인사말", label: "인사말" },
+  { value: "미션/비전", label: "미션/비전" },
+  { value: "CI", label: "CI" },
+  { value: "연혁", label: "연혁" },
+  { value: "팀소개", label: "팀소개" },
+  { value: "블로그", label: "블로그" },
+  { value: "언론보도", label: "언론보도" },
+  { value: "서비스 소개", label: "서비스 소개" },
+  { value: "분야 소개", label: "분야 소개" },
+  { value: "오시는 길", label: "오시는 길" },
+  { value: "쇼핑몰", label: "쇼핑몰" },
+  { value: "기타", label: "기타" },
+];

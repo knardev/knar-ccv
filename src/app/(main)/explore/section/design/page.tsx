@@ -1,10 +1,10 @@
 import React from "react";
-import { DesignSelectorGroup } from "../../_components/design-select-group";
-import { IndustrySelectorGroup } from "../../_components/industry-select-group";
-import { SectionSelectorGroup } from "../../_components/section-select-group";
-import { ExplorePageTemplate } from "../../_components/explore-page-template";
-import { fetchSections } from "../../_actions/fetch-sections";
-import { normalizeQueryParams } from "../../utils";
+import { DesignSelectorGroup } from "@/features/explore/components/design-select-group";
+import { IndustrySelectorGroup } from "@/features/explore/components/industry-select-group";
+import { SectionSelectorGroup } from "@/features/explore/components/section-select-group";
+import { ExplorePageTemplate } from "@/features/explore/components/explore-page-template";
+import { fetchSections } from "@/features/explore/actions/fetch-sections";
+import { normalizeQueryParams } from "@/features/explore/utils/utils";
 import { Tables } from "@/types/database.types";
 
 interface DesignSectionsPageProps {

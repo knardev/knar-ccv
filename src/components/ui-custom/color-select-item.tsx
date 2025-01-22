@@ -1,6 +1,6 @@
 // components/CustomColorSelectItem.tsx
 import React from "react";
-import { Option } from "../../app/(main)/explore/_types/options";
+import { Option } from "@/features/explore/types/options";
 import { Enums } from "@/types/database.types";
 
 // Define a color map for the primary colors

@@ -1,10 +1,14 @@
 "use server";
 
+// dependencies
 import * as cheerio from "cheerio";
 import { v4 as uuidv4 } from "uuid";
 import fetch from "node-fetch";
 // queries
-import { defineAddHomepageQuery } from "@/features/homepage/queries/define-add-homepage-query";
+import {
+  AddHomepage,
+  defineAddHomepageQuery,
+} from "@/features/homepage/queries/define-add-homepage-query";
 // types
 import { TablesInsert } from "@/types/database.types";
 // utils
@@ -19,7 +23,7 @@ type HomepageInsert = TablesInsert<"homepages">;
  */
 export async function addHomepage(
   homepageData: HomepageInsert,
-): Promise<HomepageInsert> {
+): Promise<AddHomepage[number]> {
   // Define the favicon-fetching and meta data logic
   const fetchPageMetadata = async (url: string): Promise<{
     faviconUrl: string | null;
@@ -143,7 +147,7 @@ export async function addHomepage(
       throw new Error("No data returned after adding homepage");
     }
 
-    return data[0]; // Return the first inserted row
+    return data[0];
   } catch (error) {
     console.error("Error in addHomepage action:", error);
     throw error;

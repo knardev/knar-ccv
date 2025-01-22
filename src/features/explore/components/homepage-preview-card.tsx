@@ -35,7 +35,7 @@ export const HomepagePreviewCard = ({
   const bgImageUrl = thumbnail_url || defaultThumbnail;
 
   return (
-    <div className="relative group block w-full overflow-hidden">
+    <div className="relative group block w-full overflow-hidden rounded-sm shadow-sm border border-muted">
       {/* Main clickable area */}
       <Link
         href={href || "#"}
@@ -44,7 +44,7 @@ export const HomepagePreviewCard = ({
       >
         {/* Full-card dark overlay inside the Link */}
         <div
-          className="absolute inset-0 z-10 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute inset-0 z-10 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity"
           aria-hidden="true"
         ></div>
 
@@ -76,7 +76,7 @@ export const HomepagePreviewCard = ({
             height={24}
             className="rounded"
           />
-          <h2 className="text-white text-lg font-bold truncate max-w-36">
+          <h2 className="text-white text-lg font-bold truncate max-w-48">
             {name}
           </h2>
         </div>
@@ -115,7 +115,7 @@ export const HomepagePreviewCard = ({
           opacity-0 group-hover:opacity-100
           transition-opacity h-16"
       >
-        <Avatar className="h-10 w-10">
+        <Avatar className="h-8 w-8">
           <AvatarImage src={avatar_url || ""} alt={profile_name || "Profile"} />
           <AvatarFallback>
             {profile_name?.slice(0, 2).toUpperCase() || "?"}

@@ -1,14 +1,17 @@
 "use server";
 
+// queries
+import { defineUpdateHomepageQuery } from "@/features/homepage/queries/define-update-homepage-query";
+// utils
 import { revalidatePath } from "next/cache";
-import { defineUpdateHomepageQuery } from "../_queries/defineUpdateHomepageQuery";
+// types
 import { Tables } from "@/types/database.types";
 
 type Homepage = Tables<"homepages">;
 
 export async function updateHomepage(
   homepageId: string,
-  updatedData: Partial<Homepage>
+  updatedData: Partial<Homepage>,
 ) {
   const query = defineUpdateHomepageQuery(homepageId, updatedData);
 

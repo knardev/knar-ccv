@@ -20,19 +20,16 @@ import { CircleX, Save } from "lucide-react";
 import { updateHomepage } from "@/features/homepage/actions/update-homepage";
 import { deleteHomepage } from "@/features/homepage/actions/delete-homepage";
 // types
-import { Enums } from "@/types/database.types";
 import { HomepageWithPageAndSections } from "@/features/homepage/types/types";
 // utils
 import { revalidate } from "@/utils/revalidate";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections;
-  accountRole: Enums<"account_role">;
 }
 
 export function HomepageDetailDrawerHeaderEditable({
   data,
-  accountRole,
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
   const updatedHomepage = useRecoilValue(beingEdittedHomepageState);
@@ -48,11 +45,10 @@ export function HomepageDetailDrawerHeaderEditable({
 
   const onDelete = async () => {
     await deleteHomepage(data.id);
-    await revalidate("/explore/homepage/design", "page");
   };
 
   return (
-    <DrawerHeader className="border-b border-slate-200 p-4 gap-0">
+    <DrawerHeader className="border-b border-b-muted p-4 gap-0">
       <DrawerTitle>
         <div className="flex justify-between">
           <div className="flex items-center space-x-4">

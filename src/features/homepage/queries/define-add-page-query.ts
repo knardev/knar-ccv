@@ -15,7 +15,12 @@ export const defineAddPageQuery = async (pages: PageInsert[]) => {
   const query = createClient()
     .from("pages")
     .insert(pages)
-    .select();
+    .select(
+      `
+      *,
+      sections (*)
+    `,
+    );
 
   return query;
 };

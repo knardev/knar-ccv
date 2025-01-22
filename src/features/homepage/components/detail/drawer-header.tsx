@@ -20,12 +20,12 @@ import { revalidate } from "@/utils/revalidate";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections;
-  accountRole: Enums<"account_role">;
+  editable: boolean;
 }
 
 export function HomepageDetailDrawerHeader({
   data,
-  accountRole,
+  editable,
 }: HomepageDetailDrawerProps) {
   const onDelete = async () => {
     await deleteHomepage(data.id);
@@ -33,7 +33,7 @@ export function HomepageDetailDrawerHeader({
   };
 
   return (
-    <DrawerHeader className="border-b border-slate-200 p-4 gap-0">
+    <DrawerHeader className="border-b border-b-muted p-4 gap-0">
       <DrawerTitle>
         <div className="flex justify-between">
           <div className="flex items-center space-x-4">
@@ -54,7 +54,7 @@ export function HomepageDetailDrawerHeader({
               <Share2 />
               공유
             </Button> */}
-            {accountRole === "ADMIN" && (
+            {editable && (
               <>
                 {/* <Button variant="ghost" className="text-lg">
                   <ImagePlus />

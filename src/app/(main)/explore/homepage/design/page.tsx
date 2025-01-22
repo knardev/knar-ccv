@@ -6,7 +6,7 @@ import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
 // components
 import { HomepagePreviewCard } from "@/features/explore/components/homepage-preview-card";
 // types
-import { FetchHomepages } from "@/features/explore/queries/define-fetch-homepage";
+import { FetchHomepages } from "@/features/explore/queries/define-fetch-homepage-query";
 // utils
 import { normalizeQueryParams } from "@/features/explore/utils/utils";
 
@@ -23,7 +23,7 @@ export default async function Page({ searchParams }: DesignHomepagesPageProps) {
   );
 
   return (
-    <div className="grid grid-cols-3 gap-0">
+    <div className="grid grid-cols-3 gap-2">
       {homepages.map((homepage: FetchHomepages[number]) => {
         const profile = homepage.profile;
 

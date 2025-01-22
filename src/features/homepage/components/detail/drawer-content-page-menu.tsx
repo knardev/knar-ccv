@@ -15,7 +15,7 @@ export function DrawerContentPageMenu({
   handlePageSelect: (page: PageWithSections) => void;
 }) {
   return (
-    <div className="flex items-center w-full px-4 py-2 border-b border-slate-200">
+    <div className="flex flex-col w-full h-full px-0 py-2 overflow-y-auto">
       {pages.map((page) => (
         <Button
           key={page.id}

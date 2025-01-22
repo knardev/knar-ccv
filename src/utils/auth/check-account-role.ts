@@ -9,8 +9,12 @@ export const checkAccountRole = async () => {
 
   if (!user) return "USER";
 
-  const { data, error } = await supabase.from("profiles").select("account_role").eq("user_id", user?.id).single();
-  
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("account_role")
+    .eq("user_id", user?.id)
+    .single();
+
   if (error) {
     console.error("Error fetching user role:", error);
     throw new Error("Failed to fetch user role");
@@ -18,4 +22,3 @@ export const checkAccountRole = async () => {
 
   return data?.account_role ?? "USER";
 };
-

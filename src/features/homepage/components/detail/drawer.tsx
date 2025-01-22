@@ -11,17 +11,16 @@ import { HomepageDetailDrawerContentEditable } from "./drawer-content-editable";
 // hooks
 import { usePreviousSearchParams } from "@/hooks/use-previous-search-params";
 // types
-import { Enums } from "@/types/database.types";
-import { HomepageWithPageAndSections } from "../types/types";
+import { HomepageWithPageAndSections } from "@/features/homepage/types/types";
 
 interface HomepageDetailDrawerProps {
   data: HomepageWithPageAndSections | null;
-  accountRole: Enums<"account_role">;
+  editable: boolean;
 }
 
 export function HomepageDetailDrawer({
   data,
-  accountRole,
+  editable,
 }: HomepageDetailDrawerProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,7 +40,7 @@ export function HomepageDetailDrawer({
     return null;
   }
 
-  if (mode === "edit" && accountRole !== "ADMIN") {
+  if (mode === "edit" && !editable) {
     // Redirect to the homepage if the user is not an admin
     router.back();
   }
@@ -51,15 +50,15 @@ export function HomepageDetailDrawer({
       <DrawerContent>
         {mode === "edit" ? (
           <>
-            <HomepageDetailDrawerHeaderEditable
+            <HomepageDetailDrawerHeaderEditable data={data} />
+            <HomepageDetailDrawerContentEditable
               data={data}
-              accountRole={accountRole}
+              editable={editable}
             />
-            <HomepageDetailDrawerContentEditable data={data} />
           </>
         ) : (
           <>
-            <HomepageDetailDrawerHeader data={data} accountRole={accountRole} />
+            <HomepageDetailDrawerHeader data={data} editable={editable} />
             <HomepageDetailDrawerContent data={data} />
           </>
         )}

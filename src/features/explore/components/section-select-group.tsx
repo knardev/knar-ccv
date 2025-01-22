@@ -1,6 +1,6 @@
 import React from "react";
 import { QuerySelect } from "./query-select";
-import { sectionTypeOptions } from "../_types/options";
+import { sectionTypeOptions } from "@/features/homepage/utils/options";
 
 export function SectionSelectorGroup() {
   return (

@@ -1,30 +1,31 @@
-// components/ImageUploader.tsx
 "use client";
 
+// hooks
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
+import { toast } from "sonner";
+import { useProfileData } from "@/hooks/useProfileData";
+// states
+// import { beingAddedSectionsState } from "@/features/homepage/atoms/states";
+// components
 import { Images } from "lucide-react";
-import { beingAddedHomepageState } from "../_states";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+// import { SectionCard } from "@/features/homepage/components/add/section-card";
+// actions
+import { addSections } from "@/features/homepage/actions/add-sections";
+// utils
 import { createClient } from "@/utils/supabase/browser";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "sonner";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { TablesInsert } from "@/types/database.types";
-import { SectionCard } from "./section-card";
-import { useProfileData } from "@/hooks/useProfileData";
-import { PageWithSectionsInsert } from "../types";
-
-type Section = TablesInsert<"sections">;
+// types
+import { Section } from "@/features/homepage/types/types";
 
 interface ImageUploaderProps {
-  selectedPage: PageWithSectionsInsert;
+  setSections: (sections: Section[]) => void;
 }
 
-export function ImageUploader({ selectedPage }: ImageUploaderProps) {
+export function ImageUploader({ setSections }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
-  const [homepageState, setHomepageState] = useRecoilState(
-    beingAddedHomepageState
-  );
+
   const supabase = createClient();
   const uploadAreaRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -61,26 +62,26 @@ export function ImageUploader({ selectedPage }: ImageUploaderProps) {
             .from("images")
             .getPublicUrl(filePath);
 
-          if (data.publicUrl) {
+          if (data.publicUrl && profile?.id) {
             // Create a new section
             const newSection: Section = {
               image_url: [data.publicUrl],
               profile_id: profile?.id,
+              content: null,
+              created_at: null,
+              homepage_id: null,
+              id: uuidv4(),
+              main_copy: null,
+              page_id: null,
+              page_sequence: null,
+              sub_copy: null,
+              type: null,
             };
             newSections.push(newSection);
+            setSections(newSections);
+            toast.success("이미지가 성공적으로 업로드되었습니다.");
           }
         }
-
-        // Update the homepage state by adding new sections to the selected page
-        setHomepageState((prevState) => ({
-          ...prevState,
-          pages: prevState.pages.map((page) =>
-            page.id === selectedPage.id
-              ? { ...page, sections: [...page.sections, ...newSections] }
-              : page
-          ),
-        }));
-        toast.success("이미지가 성공적으로 업로드되었습니다.");
       } catch (error) {
         console.error("Error uploading files:", error);
         toast.error("이미지 업로드 중 오류가 발생했습니다.");
@@ -88,7 +89,7 @@ export function ImageUploader({ selectedPage }: ImageUploaderProps) {
         setIsUploading(false); // End uploading
       }
     },
-    [supabase, setHomepageState, profile, selectedPage]
+    [supabase, setSections, profile]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -202,16 +203,12 @@ export function ImageUploader({ selectedPage }: ImageUploaderProps) {
     };
   }, [isUploading, handlePaste, handleFileUpload]);
 
-  const selectedPageSections = selectedPage?.sections || [];
-
-  console.log("selectedPageSections", selectedPageSections);
-
   return (
     <div className="flex flex-col items-center mb-3 w-[90%]">
       <div ref={uploadAreaRef} className="w-full">
         <label
           htmlFor="file-upload"
-          className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer ${
+          className={`flex flex-col items-center justify-center w-full h-56 border-2 border-dashed rounded-lg cursor-pointer ${
             isUploading ? "bg-gray-200 cursor-not-allowed" : "hover:bg-gray-100"
           }`}
           onDragOver={isUploading ? undefined : handleDragOver}
@@ -257,13 +254,13 @@ export function ImageUploader({ selectedPage }: ImageUploaderProps) {
         </label>
       </div>
       {/* Image Preview Grid */}
-      <div className="grid grid-cols-3 gap-2 mt-4 w-full">
-        {selectedPageSections.map((section, index) => (
+      {/* <div className="grid grid-cols-3 gap-2 mt-4 w-full">
+        {sections.map((section, index) => (
           <div key={index}>
-            <SectionCard section={section} pageId={selectedPage.id ?? ""} />
+            <SectionCard section={section} />
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

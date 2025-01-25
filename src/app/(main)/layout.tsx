@@ -16,6 +16,16 @@ export default async function Layout({
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
   const accountRole = await checkAccountRole();
+  if (accountRole === "UNAUTHORIZED") {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">보기 권한이 없습니다.</h1>
+          <p className="text-lg">관리자에게 요청해주세요.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <SidebarProvider className="min-h-full" defaultOpen={defaultOpen}>

@@ -238,7 +238,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      account_role: "ADMIN" | "USER"
+      account_role: "ADMIN" | "USER" | "UNAUTHORIZED"
       company_category:
         | "대기업"
         | "스타트업"

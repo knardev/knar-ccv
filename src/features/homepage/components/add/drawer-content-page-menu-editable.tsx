@@ -18,8 +18,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Minus, Edit } from "lucide-react";
+import { HoverSelectItem } from "@/features/homepage/components/hover-select-item";
+// utils
 import { cn } from "@/lib/utils";
-
 // types
 import { PageWithSections } from "@/features/homepage/types/types";
 import {
@@ -56,7 +57,7 @@ export function DrawerContentPageMenuEditable({
   // Select로 선택할 임시 Category/SubCategory
   const [tempCategory, setTempCategory] = useState<PageCategory>("메인 페이지");
   const [tempSubCategory, setTempSubCategory] =
-    useState<PageSubcategory>("기타");
+    useState<PageSubcategory>("메인페이지");
 
   const [mode, setMode] = useState<"edit" | "new">("new");
   const [edittingPage, setEdittingPage] = useState<PageWithSections | null>(
@@ -70,7 +71,7 @@ export function DrawerContentPageMenuEditable({
     setEdittingPage(null);
     setMode("new");
     setTempCategory("메인 페이지");
-    setTempSubCategory("기타");
+    setTempSubCategory("메인페이지");
     setDialogOpen(true);
   };
 
@@ -81,7 +82,7 @@ export function DrawerContentPageMenuEditable({
     setEdittingPage(page);
     setMode("edit");
     setTempCategory(page.category ?? "메인 페이지");
-    setTempSubCategory(page.sub_category ?? "기타");
+    setTempSubCategory(page.sub_category ?? "메인페이지");
     setDialogOpen(true);
   };
 
@@ -114,7 +115,7 @@ export function DrawerContentPageMenuEditable({
               "text-foreground p-2"
             )}
           >
-            {page.category}
+            {page.sub_category}
           </Button>
 
           {/* (2) 페이지 우측 아이콘들 (isNew 분기) */}
@@ -153,7 +154,7 @@ export function DrawerContentPageMenuEditable({
           </DialogHeader>
 
           {/* 카테고리 Select */}
-          <div className="mt-2">
+          {/* <div className="mt-2">
             <label className="block text-sm font-medium mb-1">
               페이지 카테고리
             </label>
@@ -175,12 +176,12 @@ export function DrawerContentPageMenuEditable({
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* 서브카테고리 Select */}
           <div className="mt-4">
             <label className="block text-sm font-medium  mb-1">
-              페이지 서브카테고리
+              페이지 종류
             </label>
             <Select
               value={tempSubCategory}
@@ -189,17 +190,17 @@ export function DrawerContentPageMenuEditable({
               }
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="서브카테고리를 선택해주세요" />
+                <SelectValue placeholder=" 페이지를 선택해주세요" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>서브카테고리</SelectLabel>
-                  {pageSubcategoryOptions.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
+              <SelectContent className="max-h-72">
+                {pageSubcategoryOptions.map((group) => (
+                  <SelectGroup key={group.groupLabel}>
+                    <SelectLabel>{group.groupLabel}</SelectLabel>
+                    {group.options.map((opt) => (
+                      <HoverSelectItem key={opt.value} option={opt} />
+                    ))}
+                  </SelectGroup>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -217,7 +218,7 @@ export function DrawerContentPageMenuEditable({
               </Button>
             )}
 
-            <Button onClick={handleConfirm} disabled={!tempCategory}>
+            <Button onClick={handleConfirm} disabled={!tempSubCategory}>
               확인
             </Button>
           </div>

@@ -10,7 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { BaseSelect } from "@/components/ui-custom/base-select";
+// import { BaseSelect } from "@/components/ui-custom/base-select";
+import { BaseSelectWithGroup } from "@/components/ui-custom/base-select-with-group";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
 import { X, Save } from "lucide-react";
 // utils
@@ -82,8 +83,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                 />
               </AspectRatio>
               <div className="mt-4 w-full">
-                <BaseSelect
-                  options={sectionTypeOptions}
+                <BaseSelectWithGroup
+                  groups={sectionTypeOptions}
                   placeholder="섹션 타입을 선택하세요"
                   value={selectedType ?? ""}
                   onValueChange={handleTypeChange}

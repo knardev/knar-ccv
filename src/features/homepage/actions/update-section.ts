@@ -32,5 +32,5 @@ export async function updateSection(
     throw new Error("No data returned after updating section");
   }
 
-  revalidatePath("/homepages/[homepage_id]", "layout");
+  revalidatePath("/homepages/[homepage_id]", "page");
 }

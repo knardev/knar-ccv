@@ -1,6 +1,5 @@
 // explore/homepage/design/page.tsx
 import React from "react";
-import Link from "next/link";
 // actions
 import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
 // components

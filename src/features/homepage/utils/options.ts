@@ -3,6 +3,12 @@ import { Enums } from "@/types/database.types";
 export interface Option<T = string> {
   value: T;
   label: string;
+  description?: string;
+}
+
+export interface GroupedOption<T = string> {
+  groupLabel: string;
+  options: Option<T>[];
 }
 
 export type IndustryCategory = Enums<"industry_category">;
@@ -164,24 +170,149 @@ export const planGrammarOptions: Option<PlanGrammar>[] = [
 export type SectionType = Enums<"section_type">;
 
 // Section type options
-export const sectionTypeOptions: Option<SectionType>[] = [
-  { value: "히어로 섹션", label: "히어로 섹션" },
-  { value: "헤더 섹션", label: "헤더 섹션" },
-  { value: "악당 섹션", label: "악당 섹션" },
-  { value: "기능 섹션", label: "기능 섹션" },
-  { value: "특장점 섹션", label: "특장점 섹션" },
-  { value: "스텟 섹션 (숫자 강조)", label: "스텟 섹션 (숫자 강조)" },
-  { value: "후기 섹션", label: "후기 섹션" },
-  { value: "콘텐츠 섹션", label: "콘텐츠 섹션" },
-  { value: "블로그 섹션", label: "블로그 섹션" },
-  { value: "고객사 로고 섹션", label: "고객사 로고 섹션" },
-  { value: "FAQ 섹션", label: "FAQ 섹션" },
-  { value: "CTA 섹션", label: "CTA 섹션" },
-  { value: "컨텍 섹션", label: "컨텍 섹션" },
-  { value: "구성원소개 섹션", label: "구성원소개 섹션" },
-  { value: "가격 섹션", label: "가격 섹션" },
-  { value: "뉴스레터 섹션", label: "뉴스레터 섹션" },
-  { value: "기타", label: "기타" },
+export const sectionTypeOptions: GroupedOption<SectionType>[] = [
+  {
+    groupLabel: "상단 섹션",
+    options: [
+      {
+        value: "히어로 섹션",
+        label: "히어로 섹션",
+        description: "메인페이지의 첫번째 섹션입니다.",
+      },
+      {
+        value: "헤더 섹션",
+        label: "헤더 섹션",
+        description: "서브페이지의 첫번째 섹션입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "설득",
+    options: [
+      {
+        value: "악당 섹션",
+        label: "악당 섹션",
+        description: "고객이 느끼는 문제점과 고통을 짚어주는 섹션입니다.",
+      },
+      {
+        value: "특장점 섹션",
+        label: "특장점 섹션",
+        description:
+          "제품과 서비스의 특장점을 소개하며 문제점과 고통을 해소하는 섹션입니다.",
+      },
+      {
+        value: "서비스 소개 섹션",
+        label: "서비스 소개 섹션",
+        description: "고객에게 제공되는 기능과 서비스를 소개하는 섹션입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "가치입증/신뢰",
+    options: [
+      {
+        value: "스텟 섹션 (숫자 강조)",
+        label: "스텟 섹션 (숫자 강조)",
+        description: "숫자로 표현된 통계를 강조하는 섹션입니다.",
+      },
+      {
+        value: "고객 후기 섹션",
+        label: "고객 후기 섹션",
+        description: "고객의 후기, 리뷰를 소개하는 섹션입니다.",
+      },
+      {
+        value: "포토폴리오 섹션",
+        label: "포토폴리오 섹션",
+        description: "포토폴리오를 소개하는 섹션입니다.",
+      },
+      {
+        value: "블로그/칼럼 섹션",
+        label: "블로그/칼럼 섹션",
+        description: "블로그 콘텐츠를 나열하는 섹션입니다. (가치입증, 신뢰)",
+      },
+      {
+        value: "뉴스/언론 섹션",
+        label: "뉴스/언론 섹션",
+        description:
+          "뉴스 또는 언론 콘텐츠를 나열하는 섹션입니다. (가치입증, 신뢰)",
+      },
+      {
+        value: "진행절차 섹션",
+        label: "진행절차 섹션",
+        description: "서비스 진행 절차를 소개하는 섹션입니다. (신뢰)",
+      },
+      {
+        value: "상장/인증서 섹션",
+        label: "상장/인증서 섹션",
+        description: "회사의 상장, 인증서를 소개하는 섹션입니다. (가치입증)",
+      },
+      {
+        value: "브랜드 소개 섹션",
+        label: "브랜드 소개 섹션",
+        description: "브랜드의 역사, 가치를 소개하는 섹션입니다. (신뢰)",
+      },
+      {
+        value: "사진 나열 섹션",
+        label: "사진 나열 섹션",
+        description:
+          "다양한 종류의 사진을 나열하는 섹션입니다. (가치입증, 신뢰)",
+      },
+      {
+        value: "콘텐츠 섹션",
+        label: "콘텐츠 섹션",
+        description: "다양한 종류의 나열하는 섹션입니다.",
+      },
+      {
+        value: "고객사 로고 섹션",
+        label: "고객사 로고 섹션",
+        description: "고객사, 파트너사 로고를 소개하는 섹션입니다.",
+      },
+      {
+        value: "FAQ 섹션",
+        label: "FAQ 섹션",
+        description: "자주 묻는 질문을 나열하는 섹션입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "행동유도",
+    options: [
+      // {
+      //   value: "CTA 섹션",
+      //   label: "CTA 섹션",
+      //   description: "고객의 행동을 유도하는 섹션입니다.",
+      // },
+      {
+        value: "행동유도 섹션 (문의폼)",
+        label: "행동유도 섹션 (문의폼)",
+        description: "문의폼을 통해 고객의 행동을 유도하는 섹션입니다.",
+      },
+      {
+        value: "행동유도 섹션 (버튼클릭)",
+        label: "행동유도 섹션 (버튼클릭)",
+        description:
+          "버튼 클릭을 통해 페이지 이동, 예약 등 고객의 행동을 유도하는 섹션입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "추가 정보",
+    options: [
+      {
+        value: "컨텍 섹션",
+        label: "컨텍 섹션",
+        description: "연락처, 오시는 길 등 정보를 소개하는 섹션입니다.",
+      },
+      {
+        value: "구성원 소개 섹션",
+        label: "구성원 소개 섹션",
+        description: "구성원을 소개하는 섹션입니다.",
+      },
+      // { value: "가격 섹션", label: "가격 섹션" },
+      // { value: "뉴스레터 섹션", label: "뉴스레터 섹션" },
+      { value: "기타", label: "기타" },
+    ],
+  },
 ];
 
 export const typeOrderMap: { [key: string]: number } = {
@@ -189,19 +320,28 @@ export const typeOrderMap: { [key: string]: number } = {
   "헤더 섹션": 1,
   "악당 섹션": 2,
   "기능 섹션": 3,
-  "특장점 섹션": 4,
-  "스텟 섹션 (숫자 강조)": 5,
-  "후기 섹션": 6,
-  "콘텐츠 섹션": 7,
-  "블로그 섹션": 8,
-  "고객사 로고 섹션": 9,
-  "FAQ 섹션": 10,
-  "CTA 섹션": 11,
-  "컨텍 섹션": 12,
-  "구성원 섹션": 13,
-  "가격 섹션": 14,
-  "뉴스레터 섹션": 15,
-  "기타": 16,
+  "서비스 소개 섹션": 4,
+  "특장점 섹션": 5,
+  "스텟 섹션 (숫자 강조)": 6,
+  "고객 후기 섹션": 7,
+  "포토폴리오 섹션": 8,
+  "블로그 섹션": 9,
+  "뉴스/언론 섹션": 10,
+  "진행절차 섹션": 11,
+  "상장/인증서 섹션": 12,
+  "브랜드 소개 섹션": 13,
+  "사진 나열 섹션": 14,
+  "콘텐츠 섹션": 15,
+  "고객사 로고 섹션": 16,
+  "FAQ 섹션": 17,
+  "CTA 섹션": 18,
+  "행동유도 섹션 (문의폼)": 19,
+  "행동유도 섹션 (버튼클릭)": 20,
+  "컨텍 섹션": 21,
+  "구성원 소개 섹션": 22,
+  "가격 섹션": 23,
+  "뉴스레터 섹션": 24,
+  "기타": 25,
 };
 
 export type PageCategory = Enums<"page_category">;
@@ -220,17 +360,128 @@ export const pageCategoryOptions: Option<PageCategory>[] = [
 
 // Page subcategory options
 // type PageSubcategory = "기타" | "인사말" | "미션/비전" | "CI" | "연혁" | "팀소개" | "블로그" | "언론보도" | "서비스 소개" | "분야 소개" | "오시는 길" | "쇼핑몰"
-export const pageSubcategoryOptions: Option<PageSubcategory>[] = [
-  { value: "인사말", label: "인사말" },
-  { value: "미션/비전", label: "미션/비전" },
-  { value: "CI", label: "CI" },
-  { value: "연혁", label: "연혁" },
-  { value: "팀소개", label: "팀소개" },
-  { value: "블로그", label: "블로그" },
-  { value: "언론보도", label: "언론보도" },
-  { value: "서비스 소개", label: "서비스 소개" },
-  { value: "분야 소개", label: "분야 소개" },
-  { value: "오시는 길", label: "오시는 길" },
-  { value: "쇼핑몰", label: "쇼핑몰" },
-  { value: "기타", label: "기타" },
+export const pageSubcategoryOptions: GroupedOption<PageSubcategory>[] = [
+  {
+    groupLabel: "메인 페이지",
+    options: [
+      {
+        value: "메인페이지",
+        label: "메인페이지",
+        description: "메인 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "회사소개",
+    options: [
+      {
+        value: "인사말",
+        label: "인사말",
+        description: "대표 인사말을 소개하는 페이지입니다.",
+      },
+      {
+        value: "미션/비전",
+        label: "미션/비전",
+        description: "회사의 미션과 비전을 소개하는 페이지입니다.",
+      },
+      {
+        value: "CI/BI",
+        label: "CI/BI",
+        description: "회사의 CI/BI를 소개하는 페이지입니다.",
+      },
+      {
+        value: "연혁",
+        label: "연혁",
+        description: "회사의 연혁을 소개하는 페이지입니다.",
+      },
+      {
+        value: "구성원",
+        label: "구성원",
+        description: "회사의 구성원을 소개하는 페이지입니다.",
+      },
+      {
+        value: "오시는 길",
+        label: "오시는 길",
+        description: "회사의 위치와 오시는 길을 소개하는 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "비즈니스/서비스",
+    options: [
+      {
+        value: "브랜드 소개",
+        label: "브랜드 소개",
+        description: "브랜드를 소개하는 페이지입니다.",
+      },
+      {
+        value: "서비스 소개",
+        label: "서비스 소개",
+        description: "서비스를 소개하는 페이지입니다.",
+      },
+      {
+        value: "업무분야",
+        label: "업무분야",
+        description:
+          "회사의 업무분야를 소개하는 페이지입니다. 주로 전문직에서 쓰입니다.",
+      },
+      {
+        value: "사업분야",
+        label: "사업분야",
+        description: "회사의 사업분야를 소개하는 페이지입니다.",
+      },
+      {
+        value: "고객사/파트너사",
+        label: "고객사/파트너사",
+        description: "고객사와 파트너사를 소개하는 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "콘텐츠",
+    options: [
+      {
+        value: "블로그/칼럼",
+        label: "블로그/칼럼",
+        description: "블로그나 칼럼을 소개하는 페이지입니다.",
+      },
+      {
+        value: "뉴스/언론",
+        label: "뉴스/언론",
+        description: "회사의 뉴스나 언론보도를 소개하는 페이지입니다.",
+      },
+      {
+        value: "고객후기/사례",
+        label: "고객후기/사례",
+        description: "고객 후기와 사례를 소개하는 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "채용",
+    options: [
+      {
+        value: "채용/인재상",
+        label: "채용/인재상",
+        description: "회사의 채용정보와 인재상을 소개하는 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "문의/전환",
+    options: [
+      {
+        value: "문의하기",
+        label: "문의하기",
+        description: "문의폼을 작성할 수 있는 페이지입니다.",
+      },
+    ],
+  },
+  {
+    groupLabel: "기타",
+    options: [
+      { value: "쇼핑몰", label: "쇼핑몰", description: "쇼핑몰 페이지입니다." },
+      { value: "기타", label: "기타", description: "기타 페이지입니다." },
+    ],
+  },
 ];

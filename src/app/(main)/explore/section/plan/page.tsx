@@ -1,7 +1,7 @@
 import React from "react";
 import { PlanSelectorGroup } from "@/features/explore/components/plan-select-group";
 import { IndustrySelectorGroup } from "@/features/explore/components/industry-select-group";
-import { SectionSelectorGroup } from "@/features/explore/components/section-select-group";
+// import { SectionSelectorGroup } from "@/features/explore/components/section-select-group";
 import { ExplorePageTemplate } from "@/features/explore/components/explore-page-template";
 import { fetchSections } from "@/features/explore/actions/fetch-sections";
 import { normalizeQueryParams } from "@/features/explore/utils/utils";
@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: PlanSectionsPageProps) {
       selectors={
         <>
           <IndustrySelectorGroup />
-          <SectionSelectorGroup />
+          {/* <SectionSelectorGroup /> */}
           <PlanSelectorGroup />
         </>
       }

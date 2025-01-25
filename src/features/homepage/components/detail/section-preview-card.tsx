@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { DeleteDialogButton } from "@/components/ui-custom/delete-dialog-button";
-import { SaveButton } from "@/components/ui-custom/save-button";
-import { BaseSelect } from "@/components/ui-custom/base-select";
+import { BaseSelectWithGroup } from "@/components/ui-custom/base-select-with-group";
 import { deleteSection } from "@/features/homepage/actions/delete-section";
 import { updateSection } from "@/features/homepage/actions/update-section";
+import { HoverSelectItem } from "@/features/homepage/components/hover-select-item";
 // utils
 import { sectionTypeOptions } from "@/features/homepage/utils/options";
 // types
@@ -47,11 +47,11 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
     const newSectionType = value as Enums<"section_type">;
     setSelectedType(newSectionType);
     await updateSection(section.id, { type: newSectionType });
-    // setSections((prev) =>
-    //   prev.map((s) =>
-    //     s.id === section.id ? { ...s, type: newSectionType } : s
-    //   )
-    // );
+    setSections((prev) =>
+      prev.map((s) =>
+        s.id === section.id ? { ...s, type: newSectionType } : s
+      )
+    );
     // setIsDialogOpen(false);
   };
 
@@ -79,7 +79,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
             </AspectRatio>
           </DialogTrigger>
 
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="max-w-[750px]">
             <DialogHeader>
               <DialogTitle>섹션 설정</DialogTitle>
             </DialogHeader>
@@ -93,12 +93,15 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
                 />
               </AspectRatio>
               <div className="mt-4 w-full">
-                <BaseSelect
-                  options={sectionTypeOptions}
+                <BaseSelectWithGroup
+                  groups={sectionTypeOptions}
                   placeholder="섹션 타입을 선택하세요"
                   value={selectedType ?? ""}
                   onValueChange={handleSave}
                   width="w-full"
+                  CustomSelectItem={({ option }) => (
+                    <HoverSelectItem option={option} />
+                  )}
                 />
               </div>
             </div>
@@ -126,7 +129,7 @@ export const SectionPreviewCard: React.FC<SectionPreviewCardProps> = ({
 
         <div className="pointer-events-none absolute top-0 left-0 right-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
           {/* 상단 그라데이션 영역 */}
-          <div className="w-full h-10 bg-gradient-to-b from-black/40 to-transparent" />
+          <div className="w-full h-10 bg-gradient-to-b from-black/40 to-transparent rounded-sm" />
           {/* 오른쪽 상단 배지 */}
           <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 text-white text-sm font-medium rounded-full">
             {section.type ?? "섹션"}

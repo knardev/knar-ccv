@@ -26,7 +26,7 @@ export function DrawerContentPageMenu({
             "text-foreground p-2"
           )}
         >
-          {page.category}
+          {page.sub_category}
         </Button>
       ))}
     </div>

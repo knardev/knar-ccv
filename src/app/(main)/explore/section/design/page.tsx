@@ -1,42 +1,45 @@
+// explore/homepage/design/page.tsx
 import React from "react";
-import { DesignSelectorGroup } from "@/features/explore/components/design-select-group";
-import { IndustrySelectorGroup } from "@/features/explore/components/industry-select-group";
-import { SectionSelectorGroup } from "@/features/explore/components/section-select-group";
-import { ExplorePageTemplate } from "@/features/explore/components/explore-page-template";
-import { fetchSections } from "@/features/explore/actions/fetch-sections";
+// actions
+import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
+// components
+import { HomepagePreviewCard } from "@/features/explore/components/homepage-preview-card";
+// types
+import { FetchHomepages } from "@/features/explore/queries/define-fetch-homepage-query";
+// utils
 import { normalizeQueryParams } from "@/features/explore/utils/utils";
-import { Tables } from "@/types/database.types";
 
-interface DesignSectionsPageProps {
+export const dynamic = "force-dynamic";
+
+interface DesignHomepagesPageProps {
   searchParams: Record<string, string | string[] | undefined>;
 }
 
-type Section = Tables<"sections">;
-
-export default async function Page({ searchParams }: DesignSectionsPageProps) {
+export default async function Page({ searchParams }: DesignHomepagesPageProps) {
   const normalizedParams = normalizeQueryParams(searchParams);
-  const sections: Section[] = await fetchSections(
+  const homepages: FetchHomepages = await fetchHomepages(
     new URLSearchParams(normalizedParams)
   );
 
   return (
-    <ExplorePageTemplate
-      selectors={
-        <>
-          <IndustrySelectorGroup />
-          <SectionSelectorGroup />
-          <DesignSelectorGroup />
-        </>
-      }
-    >
-      <div>
-        {sections.map((section) => (
-          <div key={section.id} className="border-b border-gray-200 pb-4 mb-4">
-            <h2 className="text-lg font-bold">{section.type}</h2>
-            <p className="text-sm text-gray-600">{section.image_url}</p>
-          </div>
-        ))}
-      </div>
-    </ExplorePageTemplate>
+    <div className="grid grid-cols-3 gap-2">
+      {homepages.map((homepage: FetchHomepages[number]) => {
+        const profile = homepage.profile;
+
+        return (
+          <HomepagePreviewCard
+            key={homepage.id}
+            name={homepage.name}
+            description={homepage.description}
+            favicon_url={homepage.favicon_url}
+            thumbnail_url={homepage.sections[0]?.image_url?.[0]}
+            profile_name={profile?.name}
+            avatar_url={profile?.avatar_url}
+            href={`/homepages/${homepage.id}`}
+            original_url={homepage.url}
+          />
+        );
+      })}
+    </div>
   );
 }

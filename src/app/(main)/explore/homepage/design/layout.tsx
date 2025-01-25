@@ -8,10 +8,8 @@ import { checkAccountRole } from "@/utils/auth/check-account-role";
 
 export default async function Layout({
   children,
-  drawer,
 }: {
   children: React.ReactNode;
-  drawer: React.ReactNode;
 }) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
@@ -50,7 +48,6 @@ export default async function Layout({
           {children}
         </div>
       </div>
-      {drawer}
     </SidebarProvider>
   );
 }

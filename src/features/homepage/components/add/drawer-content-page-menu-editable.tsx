@@ -57,7 +57,7 @@ export function DrawerContentPageMenuEditable({
   // Select로 선택할 임시 Category/SubCategory
   const [tempCategory, setTempCategory] = useState<PageCategory>("메인 페이지");
   const [tempSubCategory, setTempSubCategory] =
-    useState<PageSubcategory>("기타");
+    useState<PageSubcategory>("메인페이지");
 
   const [mode, setMode] = useState<"edit" | "new">("new");
   const [edittingPage, setEdittingPage] = useState<PageWithSections | null>(
@@ -71,7 +71,7 @@ export function DrawerContentPageMenuEditable({
     setEdittingPage(null);
     setMode("new");
     setTempCategory("메인 페이지");
-    setTempSubCategory("기타");
+    setTempSubCategory("메인페이지");
     setDialogOpen(true);
   };
 
@@ -82,7 +82,7 @@ export function DrawerContentPageMenuEditable({
     setEdittingPage(page);
     setMode("edit");
     setTempCategory(page.category ?? "메인 페이지");
-    setTempSubCategory(page.sub_category ?? "기타");
+    setTempSubCategory(page.sub_category ?? "메인페이지");
     setDialogOpen(true);
   };
 
@@ -192,7 +192,7 @@ export function DrawerContentPageMenuEditable({
               <SelectTrigger className="w-full">
                 <SelectValue placeholder=" 페이지를 선택해주세요" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-72">
                 {pageSubcategoryOptions.map((group) => (
                   <SelectGroup key={group.groupLabel}>
                     <SelectLabel>{group.groupLabel}</SelectLabel>
@@ -218,7 +218,7 @@ export function DrawerContentPageMenuEditable({
               </Button>
             )}
 
-            <Button onClick={handleConfirm} disabled={!tempCategory}>
+            <Button onClick={handleConfirm} disabled={!tempSubCategory}>
               확인
             </Button>
           </div>

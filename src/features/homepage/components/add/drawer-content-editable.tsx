@@ -21,8 +21,6 @@ import { SectionCard } from "@/features/homepage/components/add/section-card";
 import { PageWithSections, Section } from "@/features/homepage/types/types";
 import {
   typeOrderMap,
-  pageCategoryOptions,
-  pageSubcategoryOptions,
   PageCategory,
   PageSubcategory,
 } from "@/features/homepage/utils/options";

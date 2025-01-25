@@ -16,11 +16,9 @@ export type Database = {
             | null
           created_at: string | null
           description: string
-          design_desire_type: string | null
           design_desire_types:
             | Database["public"]["Enums"]["design_desire_type"][]
             | null
-          design_mood: Database["public"]["Enums"]["design_mood"] | null
           design_moods: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url: string | null
           id: string
@@ -47,11 +45,9 @@ export type Database = {
             | null
           created_at?: string | null
           description: string
-          design_desire_type?: string | null
           design_desire_types?:
             | Database["public"]["Enums"]["design_desire_type"][]
             | null
-          design_mood?: Database["public"]["Enums"]["design_mood"] | null
           design_moods?: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url?: string | null
           id?: string
@@ -78,11 +74,9 @@ export type Database = {
             | null
           created_at?: string | null
           description?: string
-          design_desire_type?: string | null
           design_desire_types?:
             | Database["public"]["Enums"]["design_desire_type"][]
             | null
-          design_mood?: Database["public"]["Enums"]["design_mood"] | null
           design_moods?: Database["public"]["Enums"]["design_mood"][] | null
           favicon_url?: string | null
           id?: string
@@ -350,17 +344,24 @@ export type Database = {
         | "컨텍 페이지"
         | "기타"
       page_subcategory:
+        | "메인페이지"
         | "인사말"
         | "미션/비전"
-        | "CI"
+        | "CI/BI"
         | "연혁"
-        | "팀소개"
-        | "블로그"
-        | "언론보도"
+        | "구성원"
+        | "블로그/칼럼"
+        | "뉴스/언론"
+        | "브랜드 소개"
         | "서비스 소개"
-        | "분야 소개"
+        | "업무분야"
+        | "사업분야"
+        | "고객후기/사례"
+        | "고객사/파트너사"
+        | "채용/인재상"
         | "오시는 길"
         | "쇼핑몰"
+        | "문의하기"
         | "기타"
       primary_color:
         | "빨강"
@@ -377,19 +378,28 @@ export type Database = {
         | "헤더 섹션"
         | "악당 섹션"
         | "FAQ 섹션"
-        | "블로그 섹션"
+        | "블로그/칼럼 섹션"
         | "기능 섹션"
         | "가격 섹션"
-        | "구성원소개 섹션"
+        | "구성원 소개 섹션"
         | "콘텐츠 섹션"
         | "뉴스레터 섹션"
         | "스텟 섹션 (숫자 강조)"
         | "CTA 섹션"
         | "컨텍 섹션"
-        | "후기 섹션"
+        | "고객 후기 섹션"
         | "고객사 로고 섹션"
         | "기타"
         | "특장점 섹션"
+        | "서비스 소개 섹션"
+        | "포토폴리오 섹션"
+        | "뉴스/언론 섹션"
+        | "행동유도 섹션 (문의폼)"
+        | "행동유도 섹션 (버튼클릭)"
+        | "진행절차 섹션"
+        | "상장/인증서 섹션"
+        | "브랜드 소개 섹션"
+        | "사진 나열 섹션"
     }
     CompositeTypes: {
       [_ in never]: never

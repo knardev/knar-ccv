@@ -9,12 +9,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
 } from "@/components/ui/select";
-import { Option } from "@/features/explore/types/options";
+import { Option, GroupedOption } from "@/features/homepage/utils/options";
 
 export interface BaseSelectorProps {
   id?: string;
-  options: Option[];
+  groups: GroupedOption[];
   placeholder?: string;
   width?: string;
   onValueChange?: (value: string) => void;
@@ -22,9 +23,9 @@ export interface BaseSelectorProps {
   value?: string;
 }
 
-export const BaseSelect: React.FC<BaseSelectorProps> = ({
+export const BaseSelectWithGroup: React.FC<BaseSelectorProps> = ({
   id,
-  options,
+  groups,
   placeholder = "Select an option",
   width = "w-[150px]",
   onValueChange,
@@ -37,17 +38,20 @@ export const BaseSelect: React.FC<BaseSelectorProps> = ({
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent id={id}>
-        <SelectGroup>
-          {options.map((option) =>
-            CustomSelectItem ? (
-              <CustomSelectItem key={option.value} option={option} />
-            ) : (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            )
-          )}
-        </SelectGroup>
+        {groups.map((group) => (
+          <SelectGroup key={group.groupLabel}>
+            <SelectLabel>{group.groupLabel}</SelectLabel>
+            {group.options.map((option) =>
+              CustomSelectItem ? (
+                <CustomSelectItem key={option.value} option={option} />
+              ) : (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              )
+            )}
+          </SelectGroup>
+        ))}
       </SelectContent>
     </Select>
   );

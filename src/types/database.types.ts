@@ -345,6 +345,7 @@ export type Database = {
         | "기타"
       page_subcategory:
         | "메인페이지"
+        | "회사 소개"
         | "인사말"
         | "미션/비전"
         | "CI/BI"
@@ -379,6 +380,7 @@ export type Database = {
         | "악당 섹션"
         | "FAQ 섹션"
         | "블로그/칼럼 섹션"
+        | "연혁 섹션"
         | "기능 섹션"
         | "가격 섹션"
         | "구성원 소개 섹션"

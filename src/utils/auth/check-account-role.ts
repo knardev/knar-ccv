@@ -1,5 +1,7 @@
 // 유저가 ADMIN인지 USRE인지 확인하는 함수
-import { createClient } from "../supabase/server";
+"use server";
+
+import { createClient } from "@/utils/supabase/server";
 
 export const checkAccountRole = async () => {
   const supabase = createClient();

@@ -10,8 +10,21 @@ import {
 import { parseSectionFilters } from "@/features/explore/utils/parse-section-filters";
 
 /**
+ * Fisher-Yates shuffle 알고리즘을 사용하여 배열을 랜덤하게 섞습니다.
+ */
+function shuffle<T>(array: T[]): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+/**
  * URLSearchParams로부터 필터를 파싱한 후 섹션 데이터를 가져오고,
  * 가져온 섹션 데이터에 대해 JS로 homepage 관련 필터와 page_subcategory 필터를 적용합니다.
+ * 만약 필터가 있는 경우에는 결과 데이터를 랜덤하게 섞어줍니다.
  */
 export async function fetchSections(
   searchParams: URLSearchParams,
@@ -76,7 +89,7 @@ export async function fetchSections(
       }
     });
 
-    // page_subcategory 필터: page의 sub_category와 비교
+    // page_subcategory 필터: page의 sub_category와 비교 (주석 처리되어 있음)
     // if (filters.page_subcategory && filters.page_subcategory.length > 0) {
     //   const page = section.page;
     //   if (
@@ -89,6 +102,14 @@ export async function fetchSections(
 
     return include;
   });
+
+  // 만약 필터가 하나라도 적용되었다면, 섹션 데이터를 랜덤으로 섞습니다.
+  const hasFilters = Object.values(filters).some(
+    (value) => Array.isArray(value) && value.length > 0,
+  );
+  if (hasFilters) {
+    sections = shuffle(sections);
+  }
 
   return sections;
 }

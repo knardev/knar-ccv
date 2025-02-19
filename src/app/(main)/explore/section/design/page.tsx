@@ -1,45 +1,57 @@
-// explore/homepage/design/page.tsx
-import React from "react";
-// actions
-import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
+import React, { Suspense } from "react";
 // components
-import { HomepagePreviewCard } from "@/features/explore/components/homepage-preview-card";
+import { SectionGroups } from "@/features/explore/components/section/section-groups";
+import { SectionSkeletonGrid } from "@/features/explore/components/section/section-skeleton-grid";
+// actions
+import { fetchSections } from "@/features/explore/actions/fetch-sections";
 // types
-import { FetchHomepages } from "@/features/explore/queries/define-fetch-homepage-query";
+import { FetchSections } from "@/features/explore/queries/define-fetch-section-query";
+import { pageSubcategoryOptions } from "@/features/explore/types/options";
 // utils
 import { normalizeQueryParams } from "@/features/explore/utils/utils";
 
-export const dynamic = "force-dynamic";
-
-interface DesignHomepagesPageProps {
+interface DesignSectionsPageProps {
   searchParams: Record<string, string | string[] | undefined>;
 }
 
-export default async function Page({ searchParams }: DesignHomepagesPageProps) {
+export const dynamic = "force-dynamic";
+
+export default async function Page({ searchParams }: DesignSectionsPageProps) {
   const normalizedParams = normalizeQueryParams(searchParams);
-  const homepages: FetchHomepages = await fetchHomepages(
+  const sections: FetchSections = await fetchSections(
     new URLSearchParams(normalizedParams)
   );
 
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      {homepages.map((homepage: FetchHomepages[number]) => {
-        const profile = homepage.profile;
+  // page_subcategory 기준으로 그룹화 (없으면 "미지정")
+  const groupedSections = sections.reduce((acc, section) => {
+    const subCategory = section.page?.sub_category || "미지정";
+    if (!acc[subCategory]) {
+      acc[subCategory] = [];
+    }
+    acc[subCategory].push(section);
+    return acc;
+  }, {} as Record<string, FetchSections[number][]>);
 
-        return (
-          <HomepagePreviewCard
-            key={homepage.id}
-            name={homepage.name}
-            description={homepage.description}
-            favicon_url={homepage.favicon_url}
-            thumbnail_url={homepage.sections[0]?.image_url?.[0]}
-            profile_name={profile?.name}
-            avatar_url={profile?.avatar_url}
-            href={`/homepages/${homepage.id}`}
-            original_url={homepage.url}
-          />
-        );
-      })}
-    </div>
+  // 기존 그룹 키
+  const groupKeys = Object.keys(groupedSections);
+
+  // 옵션의 값들을 string[]로 캐스팅
+  const optionValues = pageSubcategoryOptions.map(
+    (option) => option.value as string
+  );
+
+  // pageSubcategoryOptions 순서대로 정렬 (옵션에 있는 값이 먼저 나오고, 나머지는 뒤에)
+  const sortedGroupKeys = [
+    ...optionValues.filter((value) => groupKeys.includes(value)),
+    ...groupKeys.filter((key) => !optionValues.includes(key)),
+  ];
+
+  return (
+    <Suspense fallback={<SectionSkeletonGrid />}>
+      <SectionGroups
+        groupKeys={sortedGroupKeys}
+        groupedSections={groupedSections}
+      />
+    </Suspense>
   );
 }

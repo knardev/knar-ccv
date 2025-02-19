@@ -211,6 +211,11 @@ export const sectionTypeOptions: GroupedOption<SectionType>[] = [
     groupLabel: "가치입증/신뢰",
     options: [
       {
+        value: "연혁 섹션",
+        label: "연혁 섹션",
+        description: "회사의 연혁을 소개하는 섹션입니다.",
+      },
+      {
         value: "스텟 섹션 (숫자 강조)",
         label: "스텟 섹션 (숫자 강조)",
         description: "숫자로 표현된 통계를 강조하는 섹션입니다.",
@@ -321,6 +326,7 @@ export const typeOrderMap: { [key: string]: number } = {
   "악당 섹션": 2,
   "기능 섹션": 3,
   "서비스 소개 섹션": 4,
+  "연혁 섹션": 4,
   "특장점 섹션": 5,
   "스텟 섹션 (숫자 강조)": 6,
   "고객 후기 섹션": 7,
@@ -374,6 +380,12 @@ export const pageSubcategoryOptions: GroupedOption<PageSubcategory>[] = [
   {
     groupLabel: "회사소개",
     options: [
+      {
+        value: "회사 소개",
+        label: "회사 소개",
+        description:
+          "회사를 소개하는 페이지입니다. CEO 인사말, 미션/비전, 연혁 등을 포함합니다.",
+      },
       {
         value: "인사말",
         label: "인사말",

@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { TopNavigationMenu } from "@/components/layout/navigation-menu";
+import { TopNavigationMenu } from "@/components/layout/top-navigation-menu";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,7 +40,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TopNavigationMenu />
-            <main className="pt-16 w-screen h-screen flex flex-col items-center overflow-hidden">
+            <div className="w-screen h-16"></div>
+            <main className="w-screen h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
               {/* 스크롤 가능한 영역 */}
               {children}
             </main>

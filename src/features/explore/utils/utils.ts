@@ -14,9 +14,7 @@ export function parseHomepageFilters(
     "company_category",
     "industry_category",
     "industry_subcategory",
-    "design_desire_type",
     "design_desire_types",
-    "design_mood",
     "design_moods",
     "primary_color",
     "plan_grammar",
@@ -38,36 +36,6 @@ export function parseHomepageFilters(
   });
   // 동일한 키가 있을 경우 배열로 저장함
   // filters { primary_color: [ '빨강', '파랑' ] }
-  return filters;
-}
-
-export function parseSectionFilters(
-  searchParams: URLSearchParams,
-): SectionFilters {
-  // Initialize filters with type SectionFilters
-  const filters: SectionFilters = {};
-
-  // Get valid keys dynamically from SectionFilters
-  const validKeys: (keyof SectionFilters)[] = [
-    "industry_category",
-    "industry_subcategory",
-    "design_desire_type",
-    "design_mood",
-    "primary_color",
-    "plan_grammar",
-    "villian_deficiency",
-    "unique_selling_point",
-    "section_type",
-    "search",
-  ];
-
-  // Convert entries to an array and process
-  Array.from(searchParams.entries()).forEach(([key, value]) => {
-    if (value && validKeys.includes(key as keyof SectionFilters)) {
-      filters[key as keyof SectionFilters] = value;
-    }
-  });
-
   return filters;
 }
 

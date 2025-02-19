@@ -183,3 +183,27 @@ export const sectionTypeOptions: Option<SectionType>[] = [
   { value: "뉴스레터 섹션", label: "뉴스레터 섹션" },
   { value: "기타", label: "기타" },
 ];
+
+export type page_subcategory = Enums<"page_subcategory">;
+export const pageSubcategoryOptions: Option<page_subcategory>[] = [
+  { value: "메인페이지", label: "메인페이지" },
+  { value: "회사 소개", label: "회사 소개" },
+  { value: "인사말", label: "인사말" },
+  { value: "미션/비전", label: "미션/비전" },
+  { value: "CI/BI", label: "CI/BI" },
+  { value: "연혁", label: "연혁" },
+  { value: "구성원", label: "구성원" },
+  { value: "블로그/칼럼", label: "블로그/칼럼" },
+  { value: "뉴스/언론", label: "뉴스/언론" },
+  { value: "브랜드 소개", label: "브랜드 소개" },
+  { value: "서비스 소개", label: "서비스 소개" },
+  { value: "업무분야", label: "업무분야" },
+  { value: "사업분야", label: "사업분야" },
+  { value: "고객후기/사례", label: "고객후기/사례" },
+  { value: "고객사/파트너사", label: "고객사/파트너사" },
+  { value: "채용/인재상", label: "채용/인재상" },
+  { value: "오시는 길", label: "오시는 길" },
+  { value: "쇼핑몰", label: "쇼핑몰" },
+  { value: "문의하기", label: "문의하기" },
+  { value: "기타", label: "기타" },
+];

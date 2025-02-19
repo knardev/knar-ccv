@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ImagePlus, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppFloatingSidebar } from "@/features/common/components/app-floating-sidebar";
+import { AppFloatingSidebar } from "@/features/explore/components/homepage/app-floating-sidebar";
 import { checkAccountRole } from "@/utils/auth/check-account-role";
 
 export default async function Layout({
@@ -11,7 +11,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
   const accountRole = await checkAccountRole();
 

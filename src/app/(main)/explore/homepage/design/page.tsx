@@ -3,7 +3,7 @@ import React from "react";
 // actions
 import { fetchHomepages } from "@/features/explore/actions/fetch-homepages";
 // components
-import { HomepagePreviewCard } from "@/features/explore/components/homepage-preview-card";
+import { HomepagePreviewCard } from "@/features/explore/components/homepage/homepage-preview-card";
 // types
 import { FetchHomepages } from "@/features/explore/queries/define-fetch-homepage-query";
 // utils

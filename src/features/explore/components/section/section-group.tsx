@@ -73,7 +73,7 @@ export const SectionGroup: React.FC<SectionGroupProps> = ({
           </HoverCardTrigger>
           <HoverCardPortal>
             <HoverCardContent
-              className="w-40 p-2 h-80 overflow-auto"
+              className="w-40 p-2 max-h-80 overflow-auto"
               side="right"
               sideOffset={20}
               align="start"

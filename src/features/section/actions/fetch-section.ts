@@ -13,7 +13,7 @@ export async function fetchSectionWithHomepage(
   const query = defineFetchSectionWithHomepageQuery(sectionId);
 
   const { data, error } = await query;
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     console.error("Error fetching section:", error);

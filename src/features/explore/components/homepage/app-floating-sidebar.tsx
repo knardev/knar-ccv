@@ -8,9 +8,9 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { CompanyCategoryCheckboxList } from "@/features/common/components/company-category-checkbox-list";
-import { DesignDesireTypeCheckboxList } from "@/features/common/components/design-desire-type-checkbox-list";
-import { DesignMoodCheckboxList } from "@/features/common/components/design-mood-checkbox-list";
+import { CompanyCategoryCheckboxList } from "@/features/explore/components/checkbox-filter/company-category-checkbox-list";
+import { DesignDesireTypeCheckboxList } from "@/features/explore/components/checkbox-filter/design-desire-type-checkbox-list";
+import { DesignMoodCheckboxList } from "@/features/explore/components/checkbox-filter/design-mood-checkbox-list";
 
 export function AppFloatingSidebar() {
   return (

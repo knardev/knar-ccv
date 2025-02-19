@@ -2,71 +2,52 @@ import { QueryData } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 import { SectionFilters } from "@/features/explore/types/search-filters";
 
-export const defineFetchSectionsQuery = async (filters: SectionFilters) => {
-  const homepageQuery = createClient().from("homepages").select("id");
+/**
+ * 섹션 데이터 쿼리.
+ * - 섹션 테이블에서 section 관련 필터(예: section_type, search)만 SQL로 처리합니다.
+ * - 연결된 homepage, page 데이터는 모두 가져오지만 homepage 관련 필터는 적용하지 않습니다.
+ */
+export function defineFetchSectionsQuery(filters: SectionFilters) {
+  const supabase = createClient();
+  // sections와 연결된 homepage, page 정보를 모두 가져옴
+  let query = supabase
+    .from("sections")
+    .select(
+      `*, 
+        homepage:homepages (
+          profile:profiles (avatar_url, name),
+          url,
+          name,
+          favicon_url,
+          company_category,
+          industry_category,
+          industry_subcategory,
+          design_desire_types,
+          design_moods,
+          primary_color,
+          plan_grammar,
+          villian_deficiency,
+          unique_selling_point
+        ), 
+        page:pages (sub_category)`,
+    );
 
-  // Apply homepage-related filters to get matching homepage IDs
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value && key !== "section_type" && key !== "search") {
-      switch (key) {
-        case "villian_deficiency":
-        case "unique_selling_point":
-          homepageQuery.ilike(key, `%${value}%`);
-          break;
-        default:
-          homepageQuery.eq(key, value);
-          break;
-      }
-    }
-  });
-
-  // Fetch matching homepage IDs
-  const { data: homepages, error: homepageError } = await homepageQuery;
-
-  if (homepageError) {
-    console.error("Error fetching homepages for sections:", homepageError);
-    throw new Error("Failed to fetch matching homepages for sections");
+  // 섹션 관련 필터: section_type
+  if (filters.section_type && filters.section_type.length > 0) {
+    query = query.in("type", filters.section_type);
   }
 
-  const homepageIds = homepages?.map((homepage) => homepage.id) || [];
-
-  // If no matching homepages are found, return an empty query
-  if (homepageIds.length === 0) {
-    return createClient()
-      .from("sections")
-      .select("*")
-      .eq("id", "00000000-0000-0000-0000-000000000000"); // Use a dummy condition that will never be true
+  // 섹션 관련 검색어 처리: main_copy, sub_copy, content 컬럼에 대해 ilike 조건 적용
+  if (filters.search && filters.search.length > 0) {
+    const searchTerm = filters.search[0];
+    query = query.or(
+      `main_copy.ilike.%${searchTerm}%,sub_copy.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`,
+    );
   }
 
-  // Create the sections query based on homepage IDs and section-specific filters
-  let sectionQuery = createClient().from("sections").select("*");
+  return query;
+}
 
-  // Filter by matching homepage IDs
-  sectionQuery = sectionQuery.in("homepage_id", homepageIds);
-
-  // Apply section-specific filters
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value) {
-      switch (key) {
-        case "section_type":
-          sectionQuery = sectionQuery.eq("type", value);
-          break;
-        case "search":
-          sectionQuery = sectionQuery.or(
-            `type.ilike.%${value}%,image_url.ilike.%${value}%`,
-          );
-          break;
-        default:
-          // Ignore homepage-related filters already handled
-          break;
-      }
-    }
-  });
-
-  return sectionQuery;
-};
-
-// Type for the query
 export type FetchSections = QueryData<
   ReturnType<typeof defineFetchSectionsQuery>
 >;
